@@ -5,7 +5,7 @@ protocol BarContentViewDelegate: AnyObject {
     func barContent(_ view: BarContentView, perform action: ClickAction, on item: DockItem)
     func barContent(_ view: BarContentView, stackMenuFor item: DockItem) -> NSMenu?
     /// - Returns: `true` if the launcher opened; `false` if this click dismissed an open one.
-    func barContent(_ view: BarContentView, showLauncherAt anchor: NSRect, onDismiss: @escaping () -> Void) -> Bool
+    func barContent(_ view: BarContentView, showLauncherAt anchor: NSView, onDismiss: @escaping () -> Void) -> Bool
     func barContent(_ view: BarContentView, menuFor item: DockItem) -> NSMenu
     func barContent(_ view: BarContentView, menuForBackgroundAt index: Int) -> NSMenu
     func barContent(_ view: BarContentView, didMove item: DockItem, toVisualIndex index: Int)
@@ -949,8 +949,19 @@ extension BarContentView: ItemViewDelegate {
             // back when it goes away; everything else here is synchronous.
             if view.item.isAppsMenu {
                 let opened = delegate?.barContent(
-                    self, showLauncherAt: view.screenFrame, onDismiss: { [weak self] in self?.endInteraction() })
+                    self, showLauncherAt: view, onDismiss: { [weak self] in self?.endInteraction() })
                 if opened == true { beginInteraction() }
+                return
+            }
+            if view.item.isClock {
+                if calendar.isVisible {
+                    calendar.hide()
+                    endInteraction()
+                } else {
+                    calendar.appearance = settings.appearance.nsAppearance
+                    calendar.toggle(beside: window!.convertToScreen(convert(view.frame, to: nil)), edge: settings.edge, on: window?.screen)
+                    beginInteraction()
+                }
                 return
             }
             // A pinned folder is a stack: it opens a list on a plain click rather than launching.
@@ -995,11 +1006,6 @@ extension BarContentView: ItemViewDelegate {
         // rest of the month around it.
         if view.item.isClock {
             tooltip.hide()
-            calendar.appearance = settings.appearance.nsAppearance
-            calendar.schedule(
-                beside: window.convertToScreen(convert(view.frame, to: nil)),
-                edge: settings.edge,
-                on: window.screen)
             return
         }
         calendar.hide()

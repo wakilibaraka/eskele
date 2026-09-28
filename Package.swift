@@ -1,16 +1,16 @@
-// swift-tools-version: 6.0
+// swift-tools-version: 5.9
 import PackageDescription
 
 let package = Package(
     name: "Eskele",
-    platforms: [.macOS(.v15)],
+    platforms: [.macOS(.v14)],
     products: [
         .executable(name: "Eskele", targets: ["Eskele"]),
         .library(name: "DockPrefsKit", targets: ["DockPrefsKit"]),
         .library(name: "TrashKit", targets: ["TrashKit"]),
     ],
     dependencies: [
-        .package(url: "https://github.com/sparkle-project/Sparkle", from: "2.10.0"),
+        // .package(url: "https://github.com/sparkle-project/Sparkle", from: "2.10.0"),
     ],
     targets: [
         .executableTarget(
@@ -18,7 +18,7 @@ let package = Package(
             dependencies: [
                 "DockPrefsKit",
                 "TrashKit",
-                .product(name: "Sparkle", package: "Sparkle"),
+                // .product(name: "Sparkle", package: "Sparkle"),
             ],
             path: "Sources/Eskele"
         ),

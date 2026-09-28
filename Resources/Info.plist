@@ -51,6 +51,10 @@
 	<false/>
 	<key>NSAppleEventsUsageDescription</key>
 	<string>Eskele asks Finder to empty the Trash. macOS provides no other way to do it.</string>
+	<key>NSCalendarsUsageDescription</key>
+	<string>Eskele needs access to your calendar to display upcoming events.</string>
+	<key>NSCalendarsFullAccessUsageDescription</key>
+	<string>Eskele needs access to your calendar to display upcoming events.</string>
 	<key>NSServices</key>
 	<array>
 		<dict>

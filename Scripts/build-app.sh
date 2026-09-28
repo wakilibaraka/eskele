@@ -46,14 +46,14 @@ fi
 # Sparkle. SwiftPM links it but, knowing nothing of bundles, leaves it beside the binary, where
 # only a binary run from .build finds it. The bundle's copy goes where macOS apps keep theirs, and
 # the executable is told to look there.
-SPARKLE="$APP/Contents/Frameworks/Sparkle.framework"
-ditto "$BIN/Sparkle.framework" "$SPARKLE"
+# SPARKLE="$APP/Contents/Frameworks/Sparkle.framework"
+# ditto "$BIN/Sparkle.framework" "$SPARKLE"
 # Its XPC services exist for sandboxed apps, which Eskele cannot be (ARCHITECTURE.md §9); headers
 # and modules are for compiling against it. None of it runs, and every piece shipped is one more
 # to sign and notarise.
-for UNUSED in XPCServices Headers PrivateHeaders Modules; do
-	rm -rf "${SPARKLE:?}/$UNUSED" "${SPARKLE:?}/Versions/B/$UNUSED"
-done
+# for UNUSED in XPCServices Headers PrivateHeaders Modules; do
+# 	rm -rf "${SPARKLE:?}/$UNUSED" "${SPARKLE:?}/Versions/B/$UNUSED"
+# done
 # It warns that this breaks the linker's signature, which is true and fixed by the signing below.
 install_name_tool -add_rpath @executable_path/../Frameworks "$APP/Contents/MacOS/Eskele" 2>/dev/null
 
@@ -81,7 +81,7 @@ done
 # matches the Sparkle that ships.
 mkdir -p "$APP/Contents/Resources/Licenses"
 cp "$ROOT/LICENSE" "$APP/Contents/Resources/Licenses/Eskele.txt"
-cp "$ROOT/.build/artifacts/sparkle/Sparkle/LICENSE" "$APP/Contents/Resources/Licenses/Sparkle.txt"
+# cp "$ROOT/.build/artifacts/sparkle/Sparkle/LICENSE" "$APP/Contents/Resources/Licenses/Sparkle.txt"
 
 # Signing identity decides whether macOS remembers this app between builds.
 #

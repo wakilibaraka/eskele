@@ -1,0 +1,729 @@
+Building for production...
+[3 / 16] DockPrefsKit
+[14 / 69]
+[19 / 69]
+[22 / 69]
+[23 / 69]
+[27 / 69]
+[30 / 69]
+[35 / 69]
+[37 / 69]
+[38 / 69]
+[44 / 69]
+[45 / 69]
+[49 / 69]
+[50 / 69]
+[52 / 69]
+[54 / 69]
+[56 / 69] TrashKit
+/Users/baraka/eskele/Package.swift: TrashKit: ld: warning: search path '/Library/Developer/CommandLineTools/Developer/Library/Frameworks' not found
+[61 / 70] DockPrefsKit
+/Users/baraka/eskele/Package.swift: DockPrefsKit: ld: warning: search path '/Library/Developer/CommandLineTools/Developer/Library/Frameworks' not found
+[67 / 72] Eskele-product
+[81 / 155]
+[89 / 155]
+[96 / 155]
+[101 / 155]
+[107 / 155]
+[110 / 155]
+[117 / 155]
+[121 / 155]
+[126 / 155]
+[130 / 155]
+[134 / 155]
+[136 / 155]
+[137 / 155]
+[142 / 155]
+[145 / 155]
+[146 / 155]
+[147 / 155]
+[148 / 155]
+[150 / 155]
+error: SwiftCompile normal arm64 failed with a nonzero exit code. Command line:     cd /Users/baraka
+    
+/Users/baraka/eskele/Sources/Eskele/App/StatusItemController.swift:75:20: [1;31merror: [1;39mvalue of type 'UpdateService' has no member 'isAvailable'[0;0m
+ [0;36m73 |[0;0m         menu.addItem(preferences)
+ [0;36m74 |[0;0m 
+ [0;36m75 |[0;0m         if [4;39mupdates[0;0m.[4;39misAvailable[0;0m { menu.addItem(updateItem()) }
+    [0;36m|[0;0m                    `- [1;31merror: [1;39mvalue of type 'UpdateService' has no member 'isAvailable'[0;0m
+ [0;36m76 |[0;0m 
+ [0;36m77 |[0;0m         let hideIcon = NSMenuItem(
+
+/Users/baraka/eskele/Sources/Eskele/Calendar/CalendarEventService.swift:16:16: [1;31merror: [1;39mstatic property 'shared' is not concurrency-safe because non-'Sendable' type 'CalendarEventService' may have shared mutable state[0;0m [#]8;;https://docs.swift.org/compiler/documentation/diagnostics/mutable-global-variable\MutableGlobalVariable]8;;\]
+ [0;36m13 |[0;0m }
+ [0;36m14 |[0;0m 
+ [0;36m15 |[0;0m final class CalendarEventService: ObservableObject {
+    [0;36m|[0;0m             `- [1;39mnote: [1;39mclass 'CalendarEventService' does not conform to the 'Sendable' protocol[0;0m
+ [0;36m16 |[0;0m     static let shared = CalendarEventService()
+    [0;36m|[0;0m                |- [1;31merror: [1;39mstatic property 'shared' is not concurrency-safe because non-'Sendable' type 'CalendarEventService' may have shared mutable state[0;0m [#]8;;https://docs.swift.org/compiler/documentation/diagnostics/mutable-global-variable\MutableGlobalVariable]8;;\]
+    [0;36m|[0;0m                |- [1;39mnote: [1;39madd '@MainActor' to make static property 'shared' part of global actor 'MainActor'[0;0m
+    [0;36m|[0;0m                `- [1;39mnote: [1;39mdisable concurrency-safety checks if accesses are protected by an external synchronization mechanism[0;0m
+ [0;36m17 |[0;0m     
+ [0;36m18 |[0;0m     private let store = EKEventStore()
+
+/Users/baraka/eskele/Sources/Eskele/Calendar/CalendarEventService.swift:28:48: [1;33mwarning: [1;39m'authorized' was deprecated in macOS 14.0: Check for full access or write only access[0;0m [#]8;;https://docs.swift.org/compiler/documentation/diagnostics/deprecated-declaration\DeprecatedDeclaration]8;;\]
+ [0;36m26 |[0;0m     func checkPermission() {
+ [0;36m27 |[0;0m         let status = EKEventStore.authorizationStatus(for: .event)
+ [0;36m28 |[0;0m         if status == .fullAccess || status == .authorized {
+    [0;36m|[0;0m                                                `- [1;33mwarning: [1;39m'authorized' was deprecated in macOS 14.0: Check for full access or write only access[0;0m [#]8;;https://docs.swift.org/compiler/documentation/diagnostics/deprecated-declaration\DeprecatedDeclaration]8;;\]
+ [0;36m29 |[0;0m             isAuthorized = true
+ [0;36m30 |[0;0m             fetchEvents()
+
+/Users/baraka/eskele/Sources/Eskele/Calendar/CalendarEventService.swift:34:21: [1;33mwarning: [1;39mcapture of 'self' with non-Sendable type 'CalendarEventService?' in a '@Sendable' closure[0;0m [#]8;;https://docs.swift.org/compiler/documentation/diagnostics/sendable-closure-captures\SendableClosureCaptures]8;;\]
+ [0;36m13 |[0;0m }
+ [0;36m14 |[0;0m 
+ [0;36m15 |[0;0m final class CalendarEventService: ObservableObject {
+    [0;36m|[0;0m             `- [1;39mnote: [1;39mclass 'CalendarEventService' does not conform to the 'Sendable' protocol[0;0m
+ [0;36m16 |[0;0m     static let shared = CalendarEventService()
+ [0;36m17 |[0;0m     
+    [0;36m:[0;0m
+ [0;36m32 |[0;0m             store.requestFullAccessToEvents { [weak self] granted, _ in
+ [0;36m33 |[0;0m                 DispatchQueue.main.async {
+ [0;36m34 |[0;0m                     self?.isAuthorized = granted
+    [0;36m|[0;0m                     `- [1;33mwarning: [1;39mcapture of 'self' with non-Sendable type 'CalendarEventService?' in a '@Sendable' closure[0;0m [#]8;;https://docs.swift.org/compiler/documentation/diagnostics/sendable-closure-captures\SendableClosureCaptures]8;;\]
+ [0;36m35 |[0;0m                     if granted {
+ [0;36m36 |[0;0m                         self?.fetchEvents()
+
+/Users/baraka/eskele/Sources/Eskele/QuickSettings/BluetoothQuickSetting.swift:7:41: [1;31merror: [1;39mtype 'NSImage' has no member 'bluetoothIcon'[0;0m
+ [0;36m5 |[0;0m     let title = "Bluetooth"
+ [0;36m6 |[0;0m     let symbolName = "" // Not used
+ [0;36m7 |[0;0m     var customImage: NSImage? { [4;39mNSImage[0;0m.[4;39mbluetoothIcon[0;0m() }
+   [0;36m|[0;0m                                         `- [1;31merror: [1;39mtype 'NSImage' has no member 'bluetoothIcon'[0;0m
+ [0;36m8 |[0;0m     var settingsURL: URL? { URL(string: "x-apple.systempreferences:com.apple.BluetoothSettings") }
+ [0;36m9 |[0;0m     var isOn: Bool = false
+
+/Users/baraka/eskele/Sources/Eskele/QuickSettings/DarkModeQuickSetting.swift:13:22: [1;33mwarning: [1;39mmain actor-isolated property 'effectiveAppearance' can not be referenced from a nonisolated context[0;0m
+[0;36m10 |[0;0m     init() { refreshState() }
+[0;36m11 |[0;0m 
+[0;36m12 |[0;0m     func refreshState() {
+   [0;36m|[0;0m          `- [1;39mnote: [1;39madd '@MainActor' to make instance method 'refreshState()' part of global actor 'MainActor'[0;0m
+[0;36m13 |[0;0m         isOn = NSApp.effectiveAppearance.bestMatch(from: [.darkAqua, .aqua]) == .darkAqua
+   [0;36m|[0;0m                      `- [1;33mwarning: [1;39mmain actor-isolated property 'effectiveAppearance' can not be referenced from a nonisolated context[0;0m
+[0;36m14 |[0;0m     }
+[0;36m15 |[0;0m 
+
+/Library/Developer/CommandLineTools/SDKs/MacOSX27.0.sdk/System/Library/Frameworks/AppKit.framework/Headers/NSApplication.h:351:44: [1;39mnote: [1;39mproperty declared here[0;0m
+[0;36m349 |[0;0m #pragma clang diagnostic ignored "-Wavailability"
+[0;36m350 |[0;0m @property (nullable, strong) NSAppearance *appearance API_AVAILABLE(macos(10.14));
+[0;36m351 |[0;0m @property (readonly, strong) NSAppearance *effectiveAppearance API_AVAILABLE(macos(10.14));
+    [0;36m|[0;0m                                            `- [1;39mnote: [1;39mproperty declared here[0;0m
+[0;36m352 |[0;0m #pragma clang diagnostic pop
+[0;36m353 |[0;0m @end
+
+/Users/baraka/eskele/Sources/Eskele/QuickSettings/DarkModeQuickSetting.swift:13:16: [1;33mwarning: [1;39mmain actor-isolated var 'NSApp' can not be referenced from a nonisolated context[0;0m
+[0;36m10 |[0;0m     init() { refreshState() }
+[0;36m11 |[0;0m 
+[0;36m12 |[0;0m     func refreshState() {
+   [0;36m|[0;0m          `- [1;39mnote: [1;39madd '@MainActor' to make instance method 'refreshState()' part of global actor 'MainActor'[0;0m
+[0;36m13 |[0;0m         isOn = NSApp.effectiveAppearance.bestMatch(from: [.darkAqua, .aqua]) == .darkAqua
+   [0;36m|[0;0m                `- [1;33mwarning: [1;39mmain actor-isolated var 'NSApp' can not be referenced from a nonisolated context[0;0m
+[0;36m14 |[0;0m     }
+[0;36m15 |[0;0m 
+
+/Library/Developer/CommandLineTools/SDKs/MacOSX27.0.sdk/System/Library/Frameworks/AppKit.framework/Headers/NSApplication.h:196:58: [1;39mnote: [1;39mvar declared here[0;0m
+[0;36m194 |[0;0m @interface NSApplication : NSResponder <NSUserInterfaceValidations, NSMenuItemValidation, NSAccessibilityElement, NSAccessibility>
+[0;36m195 |[0;0m 
+[0;36m196 |[0;0m APPKIT_EXTERN __kindof NSApplication * _Null_unspecified NSApp NS_SWIFT_UI_ACTOR;
+    [0;36m|[0;0m                                                          `- [1;39mnote: [1;39mvar declared here[0;0m
+[0;36m197 |[0;0m 
+[0;36m198 |[0;0m @property (class, readonly, strong) __kindof NSApplication *sharedApplication;
+
+/Users/baraka/eskele/Sources/Eskele/QuickSettings/KeyboardLockQuickSetting.swift:5:39: [1;31merror: [1;39mconformance of 'KeyboardLockQuickSetting' to protocol 'QuickSetting' crosses into main actor-isolated code and can cause data races[0;0m [#]8;;https://docs.swift.org/compiler/documentation/diagnostics/conformance-isolation\ConformanceIsolation]8;;\]
+  [0;36m3 |[0;0m 
+  [0;36m4 |[0;0m @MainActor
+  [0;36m5 |[0;0m final class KeyboardLockQuickSetting: QuickSetting, ObservableObject {
+    [0;36m|[0;0m                                       |- [1;31merror: [1;39mconformance of 'KeyboardLockQuickSetting' to protocol 'QuickSetting' crosses into main actor-isolated code and can cause data races[0;0m [#]8;;https://docs.swift.org/compiler/documentation/diagnostics/conformance-isolation\ConformanceIsolation]8;;\]
+    [0;36m|[0;0m                                       |- [1;39mnote: [1;39misolate this conformance to the main actor with '@MainActor'[0;0m
+    [0;36m|[0;0m                                       `- [1;39mnote: [1;39mturn data races into runtime errors with '@preconcurrency'[0;0m
+  [0;36m6 |[0;0m     let id = "keyboardLock"
+  [0;36m7 |[0;0m     var title: String {
+    [0;36m|[0;0m         |- [1;39mnote: [1;39mmain actor-isolated property 'title' cannot satisfy nonisolated requirement[0;0m
+    [0;36m|[0;0m         `- [1;39mnote: [1;39mmark property 'title' 'nonisolated'[0;0m
+  [0;36m8 |[0;0m         return isOn ? "Keyboard Locked" : "Keyboard Lock"
+  [0;36m9 |[0;0m     }
+ [0;36m10 |[0;0m     var symbolName: String {
+    [0;36m|[0;0m         |- [1;39mnote: [1;39mmain actor-isolated property 'symbolName' cannot satisfy nonisolated requirement[0;0m
+    [0;36m|[0;0m         `- [1;39mnote: [1;39mmark property 'symbolName' 'nonisolated'[0;0m
+ [0;36m11 |[0;0m         return isOn ? "lock.fill" : "keyboard"
+ [0;36m12 |[0;0m     }
+ [0;36m13 |[0;0m     @Published private(set) var isOn: Bool = false
+    [0;36m|[0;0m                                 `- [1;39mnote: [1;39mmain actor-isolated property 'isOn' cannot satisfy nonisolated requirement[0;0m
+ [0;36m14 |[0;0m     @Published private(set) var unlockDate: Date?
+ [0;36m15 |[0;0m 
+    [0;36m:[0;0m
+ [0;36m27 |[0;0m     }
+ [0;36m28 |[0;0m 
+ [0;36m29 |[0;0m     func refreshState() {
+    [0;36m|[0;0m          |- [1;39mnote: [1;39mmain actor-isolated instance method 'refreshState()' cannot satisfy nonisolated requirement[0;0m
+    [0;36m|[0;0m          `- [1;39mnote: [1;39mmark instance method 'refreshState()' 'nonisolated'[0;0m
+ [0;36m30 |[0;0m         isOn = eventTap != nil
+ [0;36m31 |[0;0m     }
+ [0;36m32 |[0;0m 
+ [0;36m33 |[0;0m     func toggle() {
+    [0;36m|[0;0m          |- [1;39mnote: [1;39mmain actor-isolated instance method 'toggle()' cannot satisfy nonisolated requirement[0;0m
+    [0;36m|[0;0m          `- [1;39mnote: [1;39mmark instance method 'toggle()' 'nonisolated'[0;0m
+ [0;36m34 |[0;0m         if isOn {
+ [0;36m35 |[0;0m             disableLock()
+
+/Users/baraka/eskele/Sources/Eskele/QuickSettings/KeyboardLockQuickSetting.swift:43:24: [1;31merror: [1;39mreference to var 'kAXTrustedCheckOptionPrompt' is not concurrency-safe because it involves shared mutable state[0;0m
+ [0;36m41 |[0;0m 
+ [0;36m42 |[0;0m     private func enableLock() {
+ [0;36m43 |[0;0m         let options = [kAXTrustedCheckOptionPrompt.takeUnretainedValue() as String: true] as CFDictionary
+    [0;36m|[0;0m                        `- [1;31merror: [1;39mreference to var 'kAXTrustedCheckOptionPrompt' is not concurrency-safe because it involves shared mutable state[0;0m
+ [0;36m44 |[0;0m         guard AXIsProcessTrustedWithOptions(options) else {
+ [0;36m45 |[0;0m             let alert = NSAlert()
+
+/Library/Developer/CommandLineTools/SDKs/MacOSX27.0.sdk/System/Library/Frameworks/ApplicationServices.framework/Frameworks/HIServices.framework/Headers/AXUIElement.h:66:20: [1;39mnote: [1;39mvar declared here[0;0m
+ [0;36m64 |[0;0m extern Boolean AXIsProcessTrustedWithOptions (CFDictionaryRef __nullable options) CF_AVAILABLE_MAC(10_9);
+ [0;36m65 |[0;0m     
+ [0;36m66 |[0;0m extern CFStringRef kAXTrustedCheckOptionPrompt CF_AVAILABLE_MAC(10_9);
+    [0;36m|[0;0m                    `- [1;39mnote: [1;39mvar declared here[0;0m
+ [0;36m67 |[0;0m 
+ [0;36m68 |[0;0m /*!
+
+/Users/baraka/eskele/Sources/Eskele/QuickSettings/MuteAudioQuickSetting.swift:49:13: [1;33mwarning: [1;39mvariable 'muteSize' was never mutated; consider changing to 'let' constant[0;0m [#]8;;https://docs.swift.org/compiler/documentation/diagnostics/variable-never-mutated\VariableNeverMutated]8;;\]
+[0;36m47 |[0;0m             mElement: kAudioObjectPropertyElementMain
+[0;36m48 |[0;0m         )
+[0;36m49 |[0;0m         var muteSize = UInt32(MemoryLayout<UInt32>.size)
+   [0;36m|[0;0m             `- [1;33mwarning: [1;39mvariable 'muteSize' was never mutated; consider changing to 'let' constant[0;0m [#]8;;https://docs.swift.org/compiler/documentation/diagnostics/variable-never-mutated\VariableNeverMutated]8;;\]
+[0;36m50 |[0;0m         var newMuted: UInt32 = isOn ? 0 : 1
+[0;36m51 |[0;0m         AudioObjectSetPropertyData(defaultDeviceID, &muteAddr, 0, nil, muteSize, &newMuted)
+
+/Users/baraka/eskele/Sources/Eskele/QuickSettings/MuteMicQuickSetting.swift:46:13: [1;33mwarning: [1;39mvariable 'size' was never mutated; consider changing to 'let' constant[0;0m [#]8;;https://docs.swift.org/compiler/documentation/diagnostics/variable-never-mutated\VariableNeverMutated]8;;\]
+[0;36m44 |[0;0m             mElement: kAudioObjectPropertyElementMain
+[0;36m45 |[0;0m         )
+[0;36m46 |[0;0m         var size = UInt32(MemoryLayout<UInt32>.size)
+   [0;36m|[0;0m             `- [1;33mwarning: [1;39mvariable 'size' was never mutated; consider changing to 'let' constant[0;0m [#]8;;https://docs.swift.org/compiler/documentation/diagnostics/variable-never-mutated\VariableNeverMutated]8;;\]
+[0;36m47 |[0;0m         var newMuted: UInt32 = isOn ? 0 : 1
+[0;36m48 |[0;0m         AudioObjectSetPropertyData(deviceID, &muteAddr, 0, nil, size, &newMuted)
+
+/Users/baraka/eskele/Sources/Eskele/QuickSettings/PomodoroQuickSetting.swift:33:21: [1;33mwarning: [1;39mcapture of 'self' with non-Sendable type 'PomodoroQuickSetting?' in a '@Sendable' closure[0;0m [#]8;;https://docs.swift.org/compiler/documentation/diagnostics/sendable-closure-captures\SendableClosureCaptures]8;;\]
+ [0;36m2 |[0;0m import UserNotifications
+ [0;36m3 |[0;0m 
+ [0;36m4 |[0;0m final class PomodoroQuickSetting: QuickSetting {
+   [0;36m|[0;0m             `- [1;39mnote: [1;39mclass 'PomodoroQuickSetting' does not conform to the 'Sendable' protocol[0;0m
+ [0;36m5 |[0;0m     let id = "pomodoro"
+ [0;36m6 |[0;0m     let title = "Pomodoro"
+   [0;36m:[0;0m
+[0;36m31 |[0;0m                     let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: nil)
+[0;36m32 |[0;0m                     UNUserNotificationCenter.current().add(request) { _ in }
+[0;36m33 |[0;0m                     self?.timer = nil
+   [0;36m|[0;0m                     `- [1;33mwarning: [1;39mcapture of 'self' with non-Sendable type 'PomodoroQuickSetting?' in a '@Sendable' closure[0;0m [#]8;;https://docs.swift.org/compiler/documentation/diagnostics/sendable-closure-captures\SendableClosureCaptures]8;;\]
+[0;36m34 |[0;0m                     self?.refreshState()
+[0;36m35 |[0;0m                 }
+
+/Users/baraka/eskele/Sources/Eskele/QuickSettings/SpeedTestQuickSetting.swift:25:28: [1;31merror: [1;39mcannot find type 'NetworkThroughputMonitor' in scope[0;0m
+[0;36m23 |[0;0m 
+[0;36m24 |[0;0m     let controller: SpeedTestController
+[0;36m25 |[0;0m     let throughputMonitor: [4;39mNetworkThroughputMonitor[0;0m
+   [0;36m|[0;0m                            `- [1;31merror: [1;39mcannot find type 'NetworkThroughputMonitor' in scope[0;0m
+[0;36m26 |[0;0m     private var observer: Any?
+[0;36m27 |[0;0m 
+
+/Users/baraka/eskele/Sources/Eskele/QuickSettings/SpeedTestQuickSetting.swift:6:36: [1;31merror: [1;39mconformance of 'SpeedTestQuickSetting' to protocol 'QuickSetting' crosses into main actor-isolated code and can cause data races[0;0m [#]8;;https://docs.swift.org/compiler/documentation/diagnostics/conformance-isolation\ConformanceIsolation]8;;\]
+ [0;36m4 |[0;0m 
+ [0;36m5 |[0;0m @MainActor
+ [0;36m6 |[0;0m final class SpeedTestQuickSetting: QuickSetting {
+   [0;36m|[0;0m                                    |- [1;31merror: [1;39mconformance of 'SpeedTestQuickSetting' to protocol 'QuickSetting' crosses into main actor-isolated code and can cause data races[0;0m [#]8;;https://docs.swift.org/compiler/documentation/diagnostics/conformance-isolation\ConformanceIsolation]8;;\]
+   [0;36m|[0;0m                                    |- [1;39mnote: [1;39misolate this conformance to the main actor with '@MainActor'[0;0m
+   [0;36m|[0;0m                                    `- [1;39mnote: [1;39mturn data races into runtime errors with '@preconcurrency'[0;0m
+ [0;36m7 |[0;0m     let id = "speedTest"
+ [0;36m8 |[0;0m     var title: String {
+   [0;36m|[0;0m         |- [1;39mnote: [1;39mmain actor-isolated property 'title' cannot satisfy nonisolated requirement[0;0m
+   [0;36m|[0;0m         `- [1;39mnote: [1;39mmark property 'title' 'nonisolated'[0;0m
+ [0;36m9 |[0;0m         if controller.isRunning {
+[0;36m10 |[0;0m             return "Testing..."
+   [0;36m:[0;0m
+[0;36m15 |[0;0m         return "Speed Test"
+[0;36m16 |[0;0m     }
+[0;36m17 |[0;0m     var symbolName: String {
+   [0;36m|[0;0m         |- [1;39mnote: [1;39mmain actor-isolated property 'symbolName' cannot satisfy nonisolated requirement[0;0m
+   [0;36m|[0;0m         `- [1;39mnote: [1;39mmark property 'symbolName' 'nonisolated'[0;0m
+[0;36m18 |[0;0m         return "network"
+[0;36m19 |[0;0m     }
+[0;36m20 |[0;0m     var isOn: Bool {
+   [0;36m|[0;0m         |- [1;39mnote: [1;39mmain actor-isolated property 'isOn' cannot satisfy nonisolated requirement[0;0m
+   [0;36m|[0;0m         `- [1;39mnote: [1;39mmark property 'isOn' 'nonisolated'[0;0m
+[0;36m21 |[0;0m         return controller.isRunning
+[0;36m22 |[0;0m     }
+   [0;36m:[0;0m
+[0;36m38 |[0;0m     }
+[0;36m39 |[0;0m 
+[0;36m40 |[0;0m     func refreshState() {
+   [0;36m|[0;0m          |- [1;39mnote: [1;39mmain actor-isolated instance method 'refreshState()' cannot satisfy nonisolated requirement[0;0m
+   [0;36m|[0;0m          `- [1;39mnote: [1;39mmark instance method 'refreshState()' 'nonisolated'[0;0m
+[0;36m41 |[0;0m 
+[0;36m42 |[0;0m     }
+[0;36m43 |[0;0m 
+[0;36m44 |[0;0m     func toggle() {
+   [0;36m|[0;0m          |- [1;39mnote: [1;39mmain actor-isolated instance method 'toggle()' cannot satisfy nonisolated requirement[0;0m
+   [0;36m|[0;0m          `- [1;39mnote: [1;39mmark instance method 'toggle()' 'nonisolated'[0;0m
+[0;36m45 |[0;0m         if !controller.isRunning {
+[0;36m46 |[0;0m             controller.run()
+
+/Users/baraka/eskele/Sources/Eskele/QuickSettings/SpeedTestQuickSetting.swift:30:29: [1;31merror: [1;39mcannot find 'NetworkThroughputMonitor' in scope[0;0m
+[0;36m28 |[0;0m     init() {
+[0;36m29 |[0;0m         controller = SpeedTestController()
+[0;36m30 |[0;0m         throughputMonitor = [4;39mNetworkThroughputMonitor[0;0m()
+   [0;36m|[0;0m                             `- [1;31merror: [1;39mcannot find 'NetworkThroughputMonitor' in scope[0;0m
+[0;36m31 |[0;0m         observer = controller.objectWillChange.sink { [weak self] _ in
+[0;36m32 |[0;0m             DispatchQueue.main.async {
+
+/Users/baraka/eskele/Sources/Eskele/QuickSettings/SpeedTestQuickSetting.swift:63:52: [1;33mwarning: [1;39mconsider using asynchronous alternative function[0;0m
+[0;36m61 |[0;0m                 }
+[0;36m62 |[0;0m                 let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: nil)
+[0;36m63 |[0;0m                 UNUserNotificationCenter.current().add(request) { _ in }
+   [0;36m|[0;0m                                                    `- [1;33mwarning: [1;39mconsider using asynchronous alternative function[0;0m
+[0;36m64 |[0;0m             }
+[0;36m65 |[0;0m         }
+
+/Library/Developer/CommandLineTools/SDKs/MacOSX27.0.sdk/System/Library/Frameworks/UserNotifications.framework/Headers/UNUserNotificationCenter.h:63:1: [1;39mnote: [1;39m'add' declared here[0;0m
+ [0;36m61 |[0;0m 
+ [0;36m62 |[0;0m // Notification requests can be scheduled to notify the user via time and location. See UNNotificationTrigger for more information. Calling -addNotificationRequest: will replace an existing notification request with the same identifier. A notification request with the identifier as an existing delivered notifications will alert for the new notification request and replace the existing delivered notification when it is triggered. The number of pending notification requests that may be scheduled by an application at any one time is limited by the system.
+ [0;36m63 |[0;0m - (void)addNotificationRequest:(UNNotificationRequest *)request withCompletionHandler:(nullable void(^)(NSError *__nullable error))completionHandler;
+    [0;36m|[0;0m `- [1;39mnote: [1;39m'add' declared here[0;0m
+ [0;36m64 |[0;0m 
+ [0;36m65 |[0;0m // Notification requests that have been scheduled for a future time or location and are waiting for their trigger to fire
+
+/Users/baraka/eskele/Sources/Eskele/UI/PreferencesView.swift:250:24: [1;31merror: [1;39mexternal macro implementation type 'SwiftUIMacros.StateMacro' could not be found for macro 'State()'; plugin for module 'SwiftUIMacros' not found[0;0m
+[0;36m248 |[0;0m     weak var actions: (any PreferencesActions)?
+[0;36m249 |[0;0m 
+[0;36m250 |[0;0m     @State private var accessibility = PermissionsService.accessibilityStatus
+    [0;36m|[0;0m                        `- [1;31merror: [1;39mexternal macro implementation type 'SwiftUIMacros.StateMacro' could not be found for macro 'State()'; plugin for module 'SwiftUIMacros' not found[0;0m
+[0;36m251 |[0;0m 
+[0;36m252 |[0;0m     private var settings: Settings { store.settings }
+
+SwiftUI.State:1:145: [1;39mnote: [1;39m'State()' declared here[0;0m
+[0;36m1 |[0;0m @attached(accessor, names: named(init), named(get), named(set)) @attached(peer, names: prefixed(`_`), prefixed(__), prefixed(`$`)) public macro State() = #externalMacro(module: "SwiftUIMacros", type: "StateMacro")
+  [0;36m|[0;0m                                                                                                                                                 `- [1;39mnote: [1;39m'State()' declared here[0;0m
+
+/Users/baraka/eskele/Sources/Eskele/UI/PreferencesView.swift:250:24: [1;31merror: [1;39mexternal macro implementation type 'SwiftUIMacros.StateMacro' could not be found for macro 'State()'; plugin for module 'SwiftUIMacros' not found[0;0m
+[0;36m248 |[0;0m     weak var actions: (any PreferencesActions)?
+[0;36m249 |[0;0m 
+[0;36m250 |[0;0m     @State private var accessibility = PermissionsService.accessibilityStatus
+    [0;36m|[0;0m                        `- [1;31merror: [1;39mexternal macro implementation type 'SwiftUIMacros.StateMacro' could not be found for macro 'State()'; plugin for module 'SwiftUIMacros' not found[0;0m
+[0;36m251 |[0;0m 
+[0;36m252 |[0;0m     private var settings: Settings { store.settings }
+
+SwiftUI.State:1:145: [1;39mnote: [1;39m'State()' declared here[0;0m
+[0;36m1 |[0;0m @attached(accessor, names: named(init), named(get), named(set)) @attached(peer, names: prefixed(`_`), prefixed(__), prefixed(`$`)) public macro State() = #externalMacro(module: "SwiftUIMacros", type: "StateMacro")
+  [0;36m|[0;0m                                                                                                                                                 `- [1;39mnote: [1;39m'State()' declared here[0;0m
+
+/Users/baraka/eskele/Sources/Eskele/UI/PreferencesView.swift:451:24: [1;31merror: [1;39mexternal macro implementation type 'SwiftUIMacros.StateMacro' could not be found for macro 'State()'; plugin for module 'SwiftUIMacros' not found[0;0m
+[0;36m449 |[0;0m     weak var actions: (any PreferencesActions)?
+[0;36m450 |[0;0m 
+[0;36m451 |[0;0m     @State private var accessibility = PermissionsService.accessibilityStatus
+    [0;36m|[0;0m                        `- [1;31merror: [1;39mexternal macro implementation type 'SwiftUIMacros.StateMacro' could not be found for macro 'State()'; plugin for module 'SwiftUIMacros' not found[0;0m
+[0;36m452 |[0;0m     @State private var screenRecording = PermissionsService.screenRecordingStatus
+[0;36m453 |[0;0m     /// Read on appear and after each recording, since they can change in System Settings while this
+
+SwiftUI.State:1:145: [1;39mnote: [1;39m'State()' declared here[0;0m
+[0;36m1 |[0;0m @attached(accessor, names: named(init), named(get), named(set)) @attached(peer, names: prefixed(`_`), prefixed(__), prefixed(`$`)) public macro State() = #externalMacro(module: "SwiftUIMacros", type: "StateMacro")
+  [0;36m|[0;0m                                                                                                                                                 `- [1;39mnote: [1;39m'State()' declared here[0;0m
+
+/Users/baraka/eskele/Sources/Eskele/UI/PreferencesView.swift:452:24: [1;31merror: [1;39mexternal macro implementation type 'SwiftUIMacros.StateMacro' could not be found for macro 'State()'; plugin for module 'SwiftUIMacros' not found[0;0m
+[0;36m450 |[0;0m 
+[0;36m451 |[0;0m     @State private var accessibility = PermissionsService.accessibilityStatus
+[0;36m452 |[0;0m     @State private var screenRecording = PermissionsService.screenRecordingStatus
+    [0;36m|[0;0m                        `- [1;31merror: [1;39mexternal macro implementation type 'SwiftUIMacros.StateMacro' could not be found for macro 'State()'; plugin for module 'SwiftUIMacros' not found[0;0m
+[0;36m453 |[0;0m     /// Read on appear and after each recording, since they can change in System Settings while this
+[0;36m454 |[0;0m     /// window is open.
+
+SwiftUI.State:1:145: [1;39mnote: [1;39m'State()' declared here[0;0m
+[0;36m1 |[0;0m @attached(accessor, names: named(init), named(get), named(set)) @attached(peer, names: prefixed(`_`), prefixed(__), prefixed(`$`)) public macro State() = #externalMacro(module: "SwiftUIMacros", type: "StateMacro")
+  [0;36m|[0;0m                                                                                                                                                 `- [1;39mnote: [1;39m'State()' declared here[0;0m
+
+/Users/baraka/eskele/Sources/Eskele/UI/PreferencesView.swift:455:24: [1;31merror: [1;39mexternal macro implementation type 'SwiftUIMacros.StateMacro' could not be found for macro 'State()'; plugin for module 'SwiftUIMacros' not found[0;0m
+[0;36m453 |[0;0m     /// Read on appear and after each recording, since they can change in System Settings while this
+[0;36m454 |[0;0m     /// window is open.
+[0;36m455 |[0;0m     @State private var systemShortcuts: Set<KeyCombination> = []
+    [0;36m|[0;0m                        `- [1;31merror: [1;39mexternal macro implementation type 'SwiftUIMacros.StateMacro' could not be found for macro 'State()'; plugin for module 'SwiftUIMacros' not found[0;0m
+[0;36m456 |[0;0m     /// Why the key just pressed at a recorder was refused. Only while that recorder is listening.
+[0;36m457 |[0;0m     @State private var refusals: [HotKeyRole: HotKeyProblem] = [:]
+
+SwiftUI.State:1:145: [1;39mnote: [1;39m'State()' declared here[0;0m
+[0;36m1 |[0;0m @attached(accessor, names: named(init), named(get), named(set)) @attached(peer, names: prefixed(`_`), prefixed(__), prefixed(`$`)) public macro State() = #externalMacro(module: "SwiftUIMacros", type: "StateMacro")
+  [0;36m|[0;0m                                                                                                                                                 `- [1;39mnote: [1;39m'State()' declared here[0;0m
+
+/Users/baraka/eskele/Sources/Eskele/UI/PreferencesView.swift:457:24: [1;31merror: [1;39mexternal macro implementation type 'SwiftUIMacros.StateMacro' could not be found for macro 'State()'; plugin for module 'SwiftUIMacros' not found[0;0m
+[0;36m455 |[0;0m     @State private var systemShortcuts: Set<KeyCombination> = []
+[0;36m456 |[0;0m     /// Why the key just pressed at a recorder was refused. Only while that recorder is listening.
+[0;36m457 |[0;0m     @State private var refusals: [HotKeyRole: HotKeyProblem] = [:]
+    [0;36m|[0;0m                        `- [1;31merror: [1;39mexternal macro implementation type 'SwiftUIMacros.StateMacro' could not be found for macro 'State()'; plugin for module 'SwiftUIMacros' not found[0;0m
+[0;36m458 |[0;0m 
+[0;36m459 |[0;0m     private var settings: Settings { store.settings }
+
+SwiftUI.State:1:145: [1;39mnote: [1;39m'State()' declared here[0;0m
+[0;36m1 |[0;0m @attached(accessor, names: named(init), named(get), named(set)) @attached(peer, names: prefixed(`_`), prefixed(__), prefixed(`$`)) public macro State() = #externalMacro(module: "SwiftUIMacros", type: "StateMacro")
+  [0;36m|[0;0m                                                                                                                                                 `- [1;39mnote: [1;39m'State()' declared here[0;0m
+
+/Users/baraka/eskele/Sources/Eskele/UI/PreferencesView.swift:451:24: [1;31merror: [1;39mexternal macro implementation type 'SwiftUIMacros.StateMacro' could not be found for macro 'State()'; plugin for module 'SwiftUIMacros' not found[0;0m
+[0;36m449 |[0;0m     weak var actions: (any PreferencesActions)?
+[0;36m450 |[0;0m 
+[0;36m451 |[0;0m     @State private var accessibility = PermissionsService.accessibilityStatus
+    [0;36m|[0;0m                        `- [1;31merror: [1;39mexternal macro implementation type 'SwiftUIMacros.StateMacro' could not be found for macro 'State()'; plugin for module 'SwiftUIMacros' not found[0;0m
+[0;36m452 |[0;0m     @State private var screenRecording = PermissionsService.screenRecordingStatus
+[0;36m453 |[0;0m     /// Read on appear and after each recording, since they can change in System Settings while this
+
+SwiftUI.State:1:145: [1;39mnote: [1;39m'State()' declared here[0;0m
+[0;36m1 |[0;0m @attached(accessor, names: named(init), named(get), named(set)) @attached(peer, names: prefixed(`_`), prefixed(__), prefixed(`$`)) public macro State() = #externalMacro(module: "SwiftUIMacros", type: "StateMacro")
+  [0;36m|[0;0m                                                                                                                                                 `- [1;39mnote: [1;39m'State()' declared here[0;0m
+
+/Users/baraka/eskele/Sources/Eskele/UI/PreferencesView.swift:452:24: [1;31merror: [1;39mexternal macro implementation type 'SwiftUIMacros.StateMacro' could not be found for macro 'State()'; plugin for module 'SwiftUIMacros' not found[0;0m
+[0;36m450 |[0;0m 
+[0;36m451 |[0;0m     @State private var accessibility = PermissionsService.accessibilityStatus
+[0;36m452 |[0;0m     @State private var screenRecording = PermissionsService.screenRecordingStatus
+    [0;36m|[0;0m                        `- [1;31merror: [1;39mexternal macro implementation type 'SwiftUIMacros.StateMacro' could not be found for macro 'State()'; plugin for module 'SwiftUIMacros' not found[0;0m
+[0;36m453 |[0;0m     /// Read on appear and after each recording, since they can change in System Settings while this
+[0;36m454 |[0;0m     /// window is open.
+
+SwiftUI.State:1:145: [1;39mnote: [1;39m'State()' declared here[0;0m
+[0;36m1 |[0;0m @attached(accessor, names: named(init), named(get), named(set)) @attached(peer, names: prefixed(`_`), prefixed(__), prefixed(`$`)) public macro State() = #externalMacro(module: "SwiftUIMacros", type: "StateMacro")
+  [0;36m|[0;0m                                                                                                                                                 `- [1;39mnote: [1;39m'State()' declared here[0;0m
+
+/Users/baraka/eskele/Sources/Eskele/UI/PreferencesView.swift:455:24: [1;31merror: [1;39mexternal macro implementation type 'SwiftUIMacros.StateMacro' could not be found for macro 'State()'; plugin for module 'SwiftUIMacros' not found[0;0m
+[0;36m453 |[0;0m     /// Read on appear and after each recording, since they can change in System Settings while this
+[0;36m454 |[0;0m     /// window is open.
+[0;36m455 |[0;0m     @State private var systemShortcuts: Set<KeyCombination> = []
+    [0;36m|[0;0m                        `- [1;31merror: [1;39mexternal macro implementation type 'SwiftUIMacros.StateMacro' could not be found for macro 'State()'; plugin for module 'SwiftUIMacros' not found[0;0m
+[0;36m456 |[0;0m     /// Why the key just pressed at a recorder was refused. Only while that recorder is listening.
+[0;36m457 |[0;0m     @State private var refusals: [HotKeyRole: HotKeyProblem] = [:]
+
+SwiftUI.State:1:145: [1;39mnote: [1;39m'State()' declared here[0;0m
+[0;36m1 |[0;0m @attached(accessor, names: named(init), named(get), named(set)) @attached(peer, names: prefixed(`_`), prefixed(__), prefixed(`$`)) public macro State() = #externalMacro(module: "SwiftUIMacros", type: "StateMacro")
+  [0;36m|[0;0m                                                                                                                                                 `- [1;39mnote: [1;39m'State()' declared here[0;0m
+
+/Users/baraka/eskele/Sources/Eskele/UI/PreferencesView.swift:457:24: [1;31merror: [1;39mexternal macro implementation type 'SwiftUIMacros.StateMacro' could not be found for macro 'State()'; plugin for module 'SwiftUIMacros' not found[0;0m
+[0;36m455 |[0;0m     @State private var systemShortcuts: Set<KeyCombination> = []
+[0;36m456 |[0;0m     /// Why the key just pressed at a recorder was refused. Only while that recorder is listening.
+[0;36m457 |[0;0m     @State private var refusals: [HotKeyRole: HotKeyProblem] = [:]
+    [0;36m|[0;0m                        `- [1;31merror: [1;39mexternal macro implementation type 'SwiftUIMacros.StateMacro' could not be found for macro 'State()'; plugin for module 'SwiftUIMacros' not found[0;0m
+[0;36m458 |[0;0m 
+[0;36m459 |[0;0m     private var settings: Settings { store.settings }
+
+SwiftUI.State:1:145: [1;39mnote: [1;39m'State()' declared here[0;0m
+[0;36m1 |[0;0m @attached(accessor, names: named(init), named(get), named(set)) @attached(peer, names: prefixed(`_`), prefixed(__), prefixed(`$`)) public macro State() = #externalMacro(module: "SwiftUIMacros", type: "StateMacro")
+  [0;36m|[0;0m                                                                                                                                                 `- [1;39mnote: [1;39m'State()' declared here[0;0m
+
+/Users/baraka/eskele/Sources/Eskele/UI/PreferencesView.swift:786:24: [1;31merror: [1;39mexternal macro implementation type 'SwiftUIMacros.StateMacro' could not be found for macro 'State()'; plugin for module 'SwiftUIMacros' not found[0;0m
+[0;36m784 |[0;0m     let updates: UpdateService
+[0;36m785 |[0;0m 
+[0;36m786 |[0;0m     @State private var launchAtLogin = LoginItemService.isEnabled
+    [0;36m|[0;0m                        `- [1;31merror: [1;39mexternal macro implementation type 'SwiftUIMacros.StateMacro' could not be found for macro 'State()'; plugin for module 'SwiftUIMacros' not found[0;0m
+[0;36m787 |[0;0m     @State private var automation = PermissionsService.automationStatus()
+[0;36m788 |[0;0m     @State private var accessibility = PermissionsService.accessibilityStatus
+
+SwiftUI.State:1:145: [1;39mnote: [1;39m'State()' declared here[0;0m
+[0;36m1 |[0;0m @attached(accessor, names: named(init), named(get), named(set)) @attached(peer, names: prefixed(`_`), prefixed(__), prefixed(`$`)) public macro State() = #externalMacro(module: "SwiftUIMacros", type: "StateMacro")
+  [0;36m|[0;0m                                                                                                                                                 `- [1;39mnote: [1;39m'State()' declared here[0;0m
+
+/Users/baraka/eskele/Sources/Eskele/UI/PreferencesView.swift:787:24: [1;31merror: [1;39mexternal macro implementation type 'SwiftUIMacros.StateMacro' could not be found for macro 'State()'; plugin for module 'SwiftUIMacros' not found[0;0m
+[0;36m785 |[0;0m 
+[0;36m786 |[0;0m     @State private var launchAtLogin = LoginItemService.isEnabled
+[0;36m787 |[0;0m     @State private var automation = PermissionsService.automationStatus()
+    [0;36m|[0;0m                        `- [1;31merror: [1;39mexternal macro implementation type 'SwiftUIMacros.StateMacro' could not be found for macro 'State()'; plugin for module 'SwiftUIMacros' not found[0;0m
+[0;36m788 |[0;0m     @State private var accessibility = PermissionsService.accessibilityStatus
+[0;36m789 |[0;0m     @State private var screenRecording = PermissionsService.screenRecordingStatus
+
+SwiftUI.State:1:145: [1;39mnote: [1;39m'State()' declared here[0;0m
+[0;36m1 |[0;0m @attached(accessor, names: named(init), named(get), named(set)) @attached(peer, names: prefixed(`_`), prefixed(__), prefixed(`$`)) public macro State() = #externalMacro(module: "SwiftUIMacros", type: "StateMacro")
+  [0;36m|[0;0m                                                                                                                                                 `- [1;39mnote: [1;39m'State()' declared here[0;0m
+
+/Users/baraka/eskele/Sources/Eskele/UI/PreferencesView.swift:788:24: [1;31merror: [1;39mexternal macro implementation type 'SwiftUIMacros.StateMacro' could not be found for macro 'State()'; plugin for module 'SwiftUIMacros' not found[0;0m
+[0;36m786 |[0;0m     @State private var launchAtLogin = LoginItemService.isEnabled
+[0;36m787 |[0;0m     @State private var automation = PermissionsService.automationStatus()
+[0;36m788 |[0;0m     @State private var accessibility = PermissionsService.accessibilityStatus
+    [0;36m|[0;0m                        `- [1;31merror: [1;39mexternal macro implementation type 'SwiftUIMacros.StateMacro' could not be found for macro 'State()'; plugin for module 'SwiftUIMacros' not found[0;0m
+[0;36m789 |[0;0m     @State private var screenRecording = PermissionsService.screenRecordingStatus
+[0;36m790 |[0;0m 
+
+SwiftUI.State:1:145: [1;39mnote: [1;39m'State()' declared here[0;0m
+[0;36m1 |[0;0m @attached(accessor, names: named(init), named(get), named(set)) @attached(peer, names: prefixed(`_`), prefixed(__), prefixed(`$`)) public macro State() = #externalMacro(module: "SwiftUIMacros", type: "StateMacro")
+  [0;36m|[0;0m                                                                                                                                                 `- [1;39mnote: [1;39m'State()' declared here[0;0m
+
+/Users/baraka/eskele/Sources/Eskele/UI/PreferencesView.swift:789:24: [1;31merror: [1;39mexternal macro implementation type 'SwiftUIMacros.StateMacro' could not be found for macro 'State()'; plugin for module 'SwiftUIMacros' not found[0;0m
+[0;36m787 |[0;0m     @State private var automation = PermissionsService.automationStatus()
+[0;36m788 |[0;0m     @State private var accessibility = PermissionsService.accessibilityStatus
+[0;36m789 |[0;0m     @State private var screenRecording = PermissionsService.screenRecordingStatus
+    [0;36m|[0;0m                        `- [1;31merror: [1;39mexternal macro implementation type 'SwiftUIMacros.StateMacro' could not be found for macro 'State()'; plugin for module 'SwiftUIMacros' not found[0;0m
+[0;36m790 |[0;0m 
+[0;36m791 |[0;0m     private var settings: Settings { store.settings }
+
+SwiftUI.State:1:145: [1;39mnote: [1;39m'State()' declared here[0;0m
+[0;36m1 |[0;0m @attached(accessor, names: named(init), named(get), named(set)) @attached(peer, names: prefixed(`_`), prefixed(__), prefixed(`$`)) public macro State() = #externalMacro(module: "SwiftUIMacros", type: "StateMacro")
+  [0;36m|[0;0m                                                                                                                                                 `- [1;39mnote: [1;39m'State()' declared here[0;0m
+
+/Users/baraka/eskele/Sources/Eskele/UI/PreferencesView.swift:786:24: [1;31merror: [1;39mexternal macro implementation type 'SwiftUIMacros.StateMacro' could not be found for macro 'State()'; plugin for module 'SwiftUIMacros' not found[0;0m
+[0;36m784 |[0;0m     let updates: UpdateService
+[0;36m785 |[0;0m 
+[0;36m786 |[0;0m     @State private var launchAtLogin = LoginItemService.isEnabled
+    [0;36m|[0;0m                        `- [1;31merror: [1;39mexternal macro implementation type 'SwiftUIMacros.StateMacro' could not be found for macro 'State()'; plugin for module 'SwiftUIMacros' not found[0;0m
+[0;36m787 |[0;0m     @State private var automation = PermissionsService.automationStatus()
+[0;36m788 |[0;0m     @State private var accessibility = PermissionsService.accessibilityStatus
+
+SwiftUI.State:1:145: [1;39mnote: [1;39m'State()' declared here[0;0m
+[0;36m1 |[0;0m @attached(accessor, names: named(init), named(get), named(set)) @attached(peer, names: prefixed(`_`), prefixed(__), prefixed(`$`)) public macro State() = #externalMacro(module: "SwiftUIMacros", type: "StateMacro")
+  [0;36m|[0;0m                                                                                                                                                 `- [1;39mnote: [1;39m'State()' declared here[0;0m
+
+/Users/baraka/eskele/Sources/Eskele/UI/PreferencesView.swift:787:24: [1;31merror: [1;39mexternal macro implementation type 'SwiftUIMacros.StateMacro' could not be found for macro 'State()'; plugin for module 'SwiftUIMacros' not found[0;0m
+[0;36m785 |[0;0m 
+[0;36m786 |[0;0m     @State private var launchAtLogin = LoginItemService.isEnabled
+[0;36m787 |[0;0m     @State private var automation = PermissionsService.automationStatus()
+    [0;36m|[0;0m                        `- [1;31merror: [1;39mexternal macro implementation type 'SwiftUIMacros.StateMacro' could not be found for macro 'State()'; plugin for module 'SwiftUIMacros' not found[0;0m
+[0;36m788 |[0;0m     @State private var accessibility = PermissionsService.accessibilityStatus
+[0;36m789 |[0;0m     @State private var screenRecording = PermissionsService.screenRecordingStatus
+
+SwiftUI.State:1:145: [1;39mnote: [1;39m'State()' declared here[0;0m
+[0;36m1 |[0;0m @attached(accessor, names: named(init), named(get), named(set)) @attached(peer, names: prefixed(`_`), prefixed(__), prefixed(`$`)) public macro State() = #externalMacro(module: "SwiftUIMacros", type: "StateMacro")
+  [0;36m|[0;0m                                                                                                                                                 `- [1;39mnote: [1;39m'State()' declared here[0;0m
+
+/Users/baraka/eskele/Sources/Eskele/UI/PreferencesView.swift:788:24: [1;31merror: [1;39mexternal macro implementation type 'SwiftUIMacros.StateMacro' could not be found for macro 'State()'; plugin for module 'SwiftUIMacros' not found[0;0m
+[0;36m786 |[0;0m     @State private var launchAtLogin = LoginItemService.isEnabled
+[0;36m787 |[0;0m     @State private var automation = PermissionsService.automationStatus()
+[0;36m788 |[0;0m     @State private var accessibility = PermissionsService.accessibilityStatus
+    [0;36m|[0;0m                        `- [1;31merror: [1;39mexternal macro implementation type 'SwiftUIMacros.StateMacro' could not be found for macro 'State()'; plugin for module 'SwiftUIMacros' not found[0;0m
+[0;36m789 |[0;0m     @State private var screenRecording = PermissionsService.screenRecordingStatus
+[0;36m790 |[0;0m 
+
+SwiftUI.State:1:145: [1;39mnote: [1;39m'State()' declared here[0;0m
+[0;36m1 |[0;0m @attached(accessor, names: named(init), named(get), named(set)) @attached(peer, names: prefixed(`_`), prefixed(__), prefixed(`$`)) public macro State() = #externalMacro(module: "SwiftUIMacros", type: "StateMacro")
+  [0;36m|[0;0m                                                                                                                                                 `- [1;39mnote: [1;39m'State()' declared here[0;0m
+
+/Users/baraka/eskele/Sources/Eskele/UI/PreferencesView.swift:789:24: [1;31merror: [1;39mexternal macro implementation type 'SwiftUIMacros.StateMacro' could not be found for macro 'State()'; plugin for module 'SwiftUIMacros' not found[0;0m
+[0;36m787 |[0;0m     @State private var automation = PermissionsService.automationStatus()
+[0;36m788 |[0;0m     @State private var accessibility = PermissionsService.accessibilityStatus
+[0;36m789 |[0;0m     @State private var screenRecording = PermissionsService.screenRecordingStatus
+    [0;36m|[0;0m                        `- [1;31merror: [1;39mexternal macro implementation type 'SwiftUIMacros.StateMacro' could not be found for macro 'State()'; plugin for module 'SwiftUIMacros' not found[0;0m
+[0;36m790 |[0;0m 
+[0;36m791 |[0;0m     private var settings: Settings { store.settings }
+
+SwiftUI.State:1:145: [1;39mnote: [1;39m'State()' declared here[0;0m
+[0;36m1 |[0;0m @attached(accessor, names: named(init), named(get), named(set)) @attached(peer, names: prefixed(`_`), prefixed(__), prefixed(`$`)) public macro State() = #externalMacro(module: "SwiftUIMacros", type: "StateMacro")
+  [0;36m|[0;0m                                                                                                                                                 `- [1;39mnote: [1;39m'State()' declared here[0;0m
+
+/Users/baraka/eskele/Sources/Eskele/UI/PreferencesView.swift:267:25: [1;31merror: [1;39mcannot assign to property: 'self' is immutable[0;0m
+[0;36m265 |[0;0m                     PermissionPrompt(message: "Listing their windows needs Accessibility.") {
+[0;36m266 |[0;0m                         actions?.requestAccessibility()
+[0;36m267 |[0;0m                         [4;39maccessibility[0;0m = PermissionsService.accessibilityStatus
+    [0;36m|[0;0m                         `- [1;31merror: [1;39mcannot assign to property: 'self' is immutable[0;0m
+[0;36m268 |[0;0m                     }
+[0;36m269 |[0;0m                 }
+
+/Users/baraka/eskele/Sources/Eskele/UI/PreferencesView.swift:349:21: [1;31merror: [1;39mcannot assign to property: 'self' is immutable[0;0m
+[0;36m347 |[0;0m         }
+[0;36m348 |[0;0m         .formStyle(.grouped)
+[0;36m349 |[0;0m         .onAppear { [4;39maccessibility[0;0m = PermissionsService.accessibilityStatus }
+    [0;36m|[0;0m                     `- [1;31merror: [1;39mcannot assign to property: 'self' is immutable[0;0m
+[0;36m350 |[0;0m     }
+[0;36m351 |[0;0m 
+
+/Users/baraka/eskele/Sources/Eskele/UI/PreferencesView.swift:584:25: [1;31merror: [1;39mcannot assign to property: 'self' is immutable[0;0m
+[0;36m582 |[0;0m                     PermissionPrompt(message: "Detecting full screen needs Accessibility.") {
+[0;36m583 |[0;0m                         actions?.requestAccessibility()
+[0;36m584 |[0;0m                         [4;39maccessibility[0;0m = PermissionsService.accessibilityStatus
+    [0;36m|[0;0m                         `- [1;31merror: [1;39mcannot assign to property: 'self' is immutable[0;0m
+[0;36m585 |[0;0m                     }
+[0;36m586 |[0;0m                 }
+
+/Users/baraka/eskele/Sources/Eskele/UI/PreferencesView.swift:595:13: [1;31merror: [1;39mcannot assign to property: 'self' is immutable[0;0m
+[0;36m593 |[0;0m         .formStyle(.grouped)
+[0;36m594 |[0;0m         .onAppear {
+[0;36m595 |[0;0m             [4;39maccessibility[0;0m = PermissionsService.accessibilityStatus
+    [0;36m|[0;0m             `- [1;31merror: [1;39mcannot assign to property: 'self' is immutable[0;0m
+[0;36m596 |[0;0m             screenRecording = PermissionsService.screenRecordingStatus
+[0;36m597 |[0;0m             systemShortcuts = SystemShortcuts.enabled()
+
+/Users/baraka/eskele/Sources/Eskele/UI/PreferencesView.swift:619:33: [1;31merror: [1;39mcannot assign through subscript: 'self' is immutable[0;0m
+[0;36m604 |[0;0m     }
+[0;36m605 |[0;0m 
+[0;36m606 |[0;0m     private func recorder(
+    [0;36m|[0;0m             `- [1;39mnote: [1;39mmark method 'mutating' to make 'self' mutable[0;0m
+[0;36m607 |[0;0m         for role: HotKeyRole,
+[0;36m608 |[0;0m         _ combination: KeyCombination?,
+    [0;36m:[0;0m
+[0;36m617 |[0;0m             },
+[0;36m618 |[0;0m             onRecord: record,
+[0;36m619 |[0;0m             onRefuse: { [4;39mrefusals[0;0m[role] = $0 },
+    [0;36m|[0;0m                                 `- [1;31merror: [1;39mcannot assign through subscript: 'self' is immutable[0;0m
+[0;36m620 |[0;0m             onRecordingChange: { recording in
+[0;36m621 |[0;0m                 actions?.setHotKeysSuspended(recording)
+
+/Users/baraka/eskele/Sources/Eskele/UI/PreferencesView.swift:622:33: [1;31merror: [1;39mcannot assign to property: 'self' is immutable[0;0m
+[0;36m604 |[0;0m     }
+[0;36m605 |[0;0m 
+[0;36m606 |[0;0m     private func recorder(
+    [0;36m|[0;0m             `- [1;39mnote: [1;39mmark method 'mutating' to make 'self' mutable[0;0m
+[0;36m607 |[0;0m         for role: HotKeyRole,
+[0;36m608 |[0;0m         _ combination: KeyCombination?,
+    [0;36m:[0;0m
+[0;36m620 |[0;0m             onRecordingChange: { recording in
+[0;36m621 |[0;0m                 actions?.setHotKeysSuspended(recording)
+[0;36m622 |[0;0m                 if !recording { [4;39msystemShortcuts[0;0m = SystemShortcuts.enabled() }
+    [0;36m|[0;0m                                 `- [1;31merror: [1;39mcannot assign to property: 'self' is immutable[0;0m
+[0;36m623 |[0;0m             })
+[0;36m624 |[0;0m             // Its own width, like every other control here, rather than the whole trailing column.
+
+/Users/baraka/eskele/Sources/Eskele/UI/PreferencesView.swift:800:28: [1;31merror: [1;39mcannot assign to property: 'self' is immutable[0;0m
+[0;36m798 |[0;0m                 Toggle("Launch Eskele at login", isOn: Binding(
+[0;36m799 |[0;0m                     get: { launchAtLogin },
+[0;36m800 |[0;0m                     set: { [4;39mlaunchAtLogin[0;0m = $0; actions?.setLaunchAtLogin($0) }
+    [0;36m|[0;0m                            `- [1;31merror: [1;39mcannot assign to property: 'self' is immutable[0;0m
+[0;36m801 |[0;0m                 ))
+[0;36m802 |[0;0m             } footer: {
+
+/Users/baraka/eskele/Sources/Eskele/UI/PreferencesView.swift:933:9: [1;31merror: [1;39mcannot assign to property: 'self' is immutable[0;0m
+[0;36m930 |[0;0m         comment: "Footer under the export, import and restore defaults buttons")
+[0;36m931 |[0;0m 
+[0;36m932 |[0;0m     private func refreshStatuses() {
+    [0;36m|[0;0m             `- [1;39mnote: [1;39mmark method 'mutating' to make 'self' mutable[0;0m
+[0;36m933 |[0;0m         [4;39mlaunchAtLogin[0;0m = LoginItemService.isEnabled
+    [0;36m|[0;0m         `- [1;31merror: [1;39mcannot assign to property: 'self' is immutable[0;0m
+[0;36m934 |[0;0m         automation = PermissionsService.automationStatus()
+[0;36m935 |[0;0m         accessibility = PermissionsService.accessibilityStatus
+
+/Users/baraka/eskele/Sources/Eskele/UI/PreferencesView.swift:934:9: [1;31merror: [1;39mcannot assign to property: 'self' is immutable[0;0m
+[0;36m930 |[0;0m         comment: "Footer under the export, import and restore defaults buttons")
+[0;36m931 |[0;0m 
+[0;36m932 |[0;0m     private func refreshStatuses() {
+    [0;36m|[0;0m             `- [1;39mnote: [1;39mmark method 'mutating' to make 'self' mutable[0;0m
+[0;36m933 |[0;0m         launchAtLogin = LoginItemService.isEnabled
+[0;36m934 |[0;0m         [4;39mautomation[0;0m = PermissionsService.automationStatus()
+    [0;36m|[0;0m         `- [1;31merror: [1;39mcannot assign to property: 'self' is immutable[0;0m
+[0;36m935 |[0;0m         accessibility = PermissionsService.accessibilityStatus
+[0;36m936 |[0;0m         screenRecording = PermissionsService.screenRecordingStatus
+
+/Users/baraka/eskele/Sources/Eskele/UI/PreferencesView.swift:935:9: [1;31merror: [1;39mcannot assign to property: 'self' is immutable[0;0m
+[0;36m930 |[0;0m         comment: "Footer under the export, import and restore defaults buttons")
+[0;36m931 |[0;0m 
+[0;36m932 |[0;0m     private func refreshStatuses() {
+    [0;36m|[0;0m             `- [1;39mnote: [1;39mmark method 'mutating' to make 'self' mutable[0;0m
+[0;36m933 |[0;0m         launchAtLogin = LoginItemService.isEnabled
+[0;36m934 |[0;0m         automation = PermissionsService.automationStatus()
+[0;36m935 |[0;0m         [4;39maccessibility[0;0m = PermissionsService.accessibilityStatus
+    [0;36m|[0;0m         `- [1;31merror: [1;39mcannot assign to property: 'self' is immutable[0;0m
+[0;36m936 |[0;0m         screenRecording = PermissionsService.screenRecordingStatus
+[0;36m937 |[0;0m     }
+
+/Users/baraka/eskele/Sources/Eskele/UI/PreferencesView.swift:936:9: [1;31merror: [1;39mcannot assign to property: 'self' is immutable[0;0m
+[0;36m930 |[0;0m         comment: "Footer under the export, import and restore defaults buttons")
+[0;36m931 |[0;0m 
+[0;36m932 |[0;0m     private func refreshStatuses() {
+    [0;36m|[0;0m             `- [1;39mnote: [1;39mmark method 'mutating' to make 'self' mutable[0;0m
+[0;36m933 |[0;0m         launchAtLogin = LoginItemService.isEnabled
+[0;36m934 |[0;0m         automation = PermissionsService.automationStatus()
+[0;36m935 |[0;0m         accessibility = PermissionsService.accessibilityStatus
+[0;36m936 |[0;0m         [4;39mscreenRecording[0;0m = PermissionsService.screenRecordingStatus
+    [0;36m|[0;0m         `- [1;31merror: [1;39mcannot assign to property: 'self' is immutable[0;0m
+[0;36m937 |[0;0m     }
+[0;36m938 |[0;0m }
+
+/Users/baraka/eskele/Sources/Eskele/Views/BorderlessFlyout.swift:47:13: [1;33mwarning: [1;39mvariable 'originY' was never mutated; consider changing to 'let' constant[0;0m [#]8;;https://docs.swift.org/compiler/documentation/diagnostics/variable-never-mutated\VariableNeverMutated]8;;\]
+ [0;36m45 |[0;0m         var panelHeight = fit.height
+ [0;36m46 |[0;0m         
+ [0;36m47 |[0;0m         var originY = anchor.maxY + spacing
+    [0;36m|[0;0m             `- [1;33mwarning: [1;39mvariable 'originY' was never mutated; consider changing to 'let' constant[0;0m [#]8;;https://docs.swift.org/compiler/documentation/diagnostics/variable-never-mutated\VariableNeverMutated]8;;\]
+ [0;36m48 |[0;0m         var originX = anchor.midX - (panelWidth / 2)
+ [0;36m49 |[0;0m         
+
+/Users/baraka/eskele/Sources/Eskele/Views/QuickSettingsTileView.swift:103:18: [1;33mwarning: [1;39mmain actor-isolated property 'layer' can not be referenced from a Sendable closure[0;0m
+[0;36m101 |[0;0m             layer?.opacity = 0.7
+[0;36m102 |[0;0m         } completionHandler: {
+[0;36m103 |[0;0m             self.layer?.opacity = 1.0
+    [0;36m|[0;0m                  `- [1;33mwarning: [1;39mmain actor-isolated property 'layer' can not be referenced from a Sendable closure[0;0m
+[0;36m104 |[0;0m             self.setting.toggle()
+[0;36m105 |[0;0m             self.setting.refreshState()
+
+/Library/Developer/CommandLineTools/SDKs/MacOSX27.0.sdk/System/Library/Frameworks/AppKit.framework/Headers/NSView.h:251:39: [1;39mnote: [1;39mproperty declared here[0;0m
+[0;36m249 |[0;0m /* Get and set the CALayer for this view. The layer is not encoded by the view.
+[0;36m250 |[0;0m  */
+[0;36m251 |[0;0m @property (nullable, strong) CALayer *layer API_AVAILABLE(macos(10.5));
+    [0;36m|[0;0m                                       `- [1;39mnote: [1;39mproperty declared here[0;0m
+[0;36m252 |[0;0m 
+[0;36m253 |[0;0m /* Layer Backed Views: Return YES if this view supports directly setting the layer properties (such as the contents and backgroundColor) as opposed to filling in the contents with a drawRect: implementation. Most AppKit controls return YES if there is no subclassing involved that would alter the drawing appearance. It will return NO for views that do have subclassing that AppKit does not know about (such as, overriding drawRect:, or other drawing methods).
+
+/Users/baraka/eskele/Sources/Eskele/Views/QuickSettingsTileView.swift:104:18: [1;33mwarning: [1;39mmain actor-isolated property 'setting' can not be referenced from a Sendable closure[0;0m
+  [0;36m3 |[0;0m 
+  [0;36m4 |[0;0m final class QuickSettingsTileView: NSView {
+  [0;36m5 |[0;0m     private let setting: QuickSetting
+    [0;36m|[0;0m                 `- [1;39mnote: [1;39mproperty declared here[0;0m
+  [0;36m6 |[0;0m     private let iconView = NSImageView()
+  [0;36m7 |[0;0m     private let titleLabel = NSTextField(labelWithString: "")
+    [0;36m:[0;0m
+[0;36m102 |[0;0m         } completionHandler: {
+[0;36m103 |[0;0m             self.layer?.opacity = 1.0
+[0;36m104 |[0;0m             self.setting.toggle()
+    [0;36m|[0;0m                  `- [1;33mwarning: [1;39mmain actor-isolated property 'setting' can not be referenced from a Sendable closure[0;0m
+[0;36m105 |[0;0m             self.setting.refreshState()
+[0;36m106 |[0;0m             self.refresh()
+
+/Users/baraka/eskele/Sources/Eskele/Views/QuickSettingsTileView.swift:105:18: [1;33mwarning: [1;39mmain actor-isolated property 'setting' can not be referenced from a Sendable closure[0;0m
+  [0;36m3 |[0;0m 
+  [0;36m4 |[0;0m final class QuickSettingsTileView: NSView {
+  [0;36m5 |[0;0m     private let setting: QuickSetting
+    [0;36m|[0;0m                 `- [1;39mnote: [1;39mproperty declared here[0;0m
+  [0;36m6 |[0;0m     private let iconView = NSImageView()
+  [0;36m7 |[0;0m     private let titleLabel = NSTextField(labelWithString: "")
+    [0;36m:[0;0m
+[0;36m103 |[0;0m             self.layer?.opacity = 1.0
+[0;36m104 |[0;0m             self.setting.toggle()
+[0;36m105 |[0;0m             self.setting.refreshState()
+    [0;36m|[0;0m                  `- [1;33mwarning: [1;39mmain actor-isolated property 'setting' can not be referenced from a Sendable closure[0;0m
+[0;36m106 |[0;0m             self.refresh()
+[0;36m107 |[0;0m             self.onToggle?()
+
+/Users/baraka/eskele/Sources/Eskele/Views/QuickSettingsTileView.swift:106:18: [1;33mwarning: [1;39mcall to main actor-isolated instance method 'refresh()' in a synchronous nonisolated context[0;0m [#]8;;https://docs.swift.org/compiler/documentation/diagnostics/actor-isolated-call\ActorIsolatedCall]8;;\]
+ [0;36m71 |[0;0m     }
+ [0;36m72 |[0;0m     
+ [0;36m73 |[0;0m     func refresh() {
+    [0;36m|[0;0m          |- [1;39mnote: [1;39mcalls to instance method 'refresh()' from outside of its actor context are implicitly asynchronous[0;0m
+    [0;36m|[0;0m          `- [1;39mnote: [1;39mmain actor isolation inferred from inheritance from class 'NSView'[0;0m
+ [0;36m74 |[0;0m         let on = setting.isOn
+ [0;36m75 |[0;0m         let isAction = setting.isAction
+    [0;36m:[0;0m
+[0;36m104 |[0;0m             self.setting.toggle()
+[0;36m105 |[0;0m             self.setting.refreshState()
+[0;36m106 |[0;0m             self.refresh()
+    [0;36m|[0;0m                  `- [1;33mwarning: [1;39mcall to main actor-isolated instance method 'refresh()' in a synchronous nonisolated context[0;0m [#]8;;https://docs.swift.org/compiler/documentation/diagnostics/actor-isolated-call\ActorIsolatedCall]8;;\]
+[0;36m107 |[0;0m             self.onToggle?()
+[0;36m108 |[0;0m         }
+
+/Users/baraka/eskele/Sources/Eskele/Views/QuickSettingsTileView.swift:107:18: [1;33mwarning: [1;39mmain actor-isolated property 'onToggle' can not be referenced from a Sendable closure[0;0m
+  [0;36m7 |[0;0m     private let titleLabel = NSTextField(labelWithString: "")
+  [0;36m8 |[0;0m     private var flyout: BorderlessFlyout?
+  [0;36m9 |[0;0m     var onToggle: (() -> Void)?
+    [0;36m|[0;0m         `- [1;39mnote: [1;39mproperty declared here[0;0m
+ [0;36m10 |[0;0m     
+ [0;36m11 |[0;0m     init(setting: QuickSetting) {
+    [0;36m:[0;0m
+[0;36m105 |[0;0m             self.setting.refreshState()
+[0;36m106 |[0;0m             self.refresh()
+[0;36m107 |[0;0m             self.onToggle?()
+    [0;36m|[0;0m                  `- [1;33mwarning: [1;39mmain actor-isolated property 'onToggle' can not be referenced from a Sendable closure[0;0m
+[0;36m108 |[0;0m         }
+[0;36m109 |[0;0m     }
+
+/Users/baraka/eskele/Sources/Eskele/Views/QuickSettingsTileView.swift:116:17: [1;31merror: [1;39mcannot find 'NetworkFlyoutView' in scope[0;0m
+[0;36m114 |[0;0m         case let speedTest as SpeedTestQuickSetting:
+[0;36m115 |[0;0m             rootView = AnyView(
+[0;36m116 |[0;0m                 [4;39mNetworkFlyoutView[0;0m(
+    [0;36m|[0;0m                 `- [1;31merror: [1;39mcannot find 'NetworkFlyoutView' in scope[0;0m
+[0;36m117 |[0;0m                     monitor: speedTest.throughputMonitor,
+[0;36m118 |[0;0m                     speedTest: speedTest.controller,
+
+/Users/baraka/eskele/Sources/Eskele/Views/QuickSettingsTileView.swift:127:17: [1;31merror: [1;39mcannot find 'KeyboardLockFlyoutView' in scope[0;0m
+[0;36m125 |[0;0m         case let keyboardLock as KeyboardLockQuickSetting:
+[0;36m126 |[0;0m             rootView = AnyView(
+[0;36m127 |[0;0m                 [4;39mKeyboardLockFlyoutView[0;0m(
+    [0;36m|[0;0m                 `- [1;31merror: [1;39mcannot find 'KeyboardLockFlyoutView' in scope[0;0m
+[0;36m128 |[0;0m                     setting: keyboardLock,
+[0;36m129 |[0;0m                     onChange: { [weak self] in
+
+[#ActorIsolatedCall]: <https://docs.swift.org/compiler/documentation/diagnostics/actor-isolated-call>
+[#ConformanceIsolation]: <https://docs.swift.org/compiler/documentation/diagnostics/conformance-isolation>
+[#DeprecatedDeclaration]: <https://docs.swift.org/compiler/documentation/diagnostics/deprecated-declaration>
+[#MutableGlobalVariable]: <https://docs.swift.org/compiler/documentation/diagnostics/mutable-global-variable>
+[#SendableClosureCaptures]: <https://docs.swift.org/compiler/documentation/diagnostics/sendable-closure-captures>
+[#VariableNeverMutated]: <https://docs.swift.org/compiler/documentation/diagnostics/variable-never-mutated>
+Failed frontend command:
+/Library/Developer/CommandLineTools/usr/bin/swift-frontend -frontend -c /Users/baraka/eskele/Sources/Eskele/App/AppDelegate.swift /Users/baraka/eskele/Sources/Eskele/App/SettingsStore.swift /Users/baraka/eskele/Sources/Eskele/App/StatusItemController.swift /Users/baraka/eskele/Sources/Eskele/App/main.swift /Users/baraka/eskele/Sources/Eskele/Calendar/CalendarEventService.swift /Users/baraka/eskele/Sources/Eskele/Calendar/CalendarView.swift /Users/baraka/eskele/Sources/Eskele/Model/ActivationPolicy.swift /Users/baraka/eskele/Sources/Eskele/Model/ActivitySample.swift /Users/baraka/eskele/Sources/Eskele/Model/AppCategory.swift /Users/baraka/eskele/Sources/Eskele/Model/BarComposition.swift /Users/baraka/eskele/Sources/Eskele/Model/BarKeyboard.swift /Users/baraka/eskele/Sources/Eskele/Model/BarMetrics.swift /Users/baraka/eskele/Sources/Eskele/Model/BarOverlay.swift /Users/baraka/eskele/Sources/Eskele/Model/CellDescription.swift /Users/baraka/eskele/Sources/Eskele/Model/ClickAction.swift /Users/baraka/eskele/Sources/Eskele/Model/ClockContent.swift /Users/baraka/eskele/Sources/Eskele/Model/DesignPreset.swift /Users/baraka/eskele/Sources/Eskele/Model/DockItem.swift /Users/baraka/eskele/Sources/Eskele/Model/DockModel.swift /Users/baraka/eskele/Sources/Eskele/Model/HotKey.swift /Users/baraka/eskele/Sources/Eskele/Model/LauncherContent.swift /Users/baraka/eskele/Sources/Eskele/Model/PersistedItem.swift /Users/baraka/eskele/Sources/Eskele/Model/PowerAction.swift /Users/baraka/eskele/Sources/Eskele/Model/ProgressReport.swift /Users/baraka/eskele/Sources/Eskele/Model/ReorderSolver.swift /Users/baraka/eskele/Sources/Eskele/Model/Settings.swift /Users/baraka/eskele/Sources/Eskele/Model/SettingsFile.swift /Users/baraka/eskele/Sources/Eskele/Model/TrashPrompt.swift /Users/baraka/eskele/Sources/Eskele/Model/UpdatePolicy.swift /Users/baraka/eskele/Sources/Eskele/QuickSettings/AutohideDockQuickSetting.swift /Users/baraka/eskele/Sources/Eskele/QuickSettings/AutohideMenuBarQuickSetting.swift /Users/baraka/eskele/Sources/Eskele/QuickSettings/BluetoothQuickSetting.swift /Users/baraka/eskele/Sources/Eskele/QuickSettings/DarkModeQuickSetting.swift /Users/baraka/eskele/Sources/Eskele/QuickSettings/DockRecentAppsQuickSetting.swift /Users/baraka/eskele/Sources/Eskele/QuickSettings/EjectDiscsQuickSetting.swift /Users/baraka/eskele/Sources/Eskele/QuickSettings/EmptyPasteboardQuickSetting.swift /Users/baraka/eskele/Sources/Eskele/QuickSettings/EmptyTrashQuickSetting.swift /Users/baraka/eskele/Sources/Eskele/QuickSettings/HiddenFilesQuickSetting.swift /Users/baraka/eskele/Sources/Eskele/QuickSettings/HideDesktopQuickSetting.swift /Users/baraka/eskele/Sources/Eskele/QuickSettings/KeepAwakeQuickSetting.swift /Users/baraka/eskele/Sources/Eskele/QuickSettings/KeyboardLockQuickSetting.swift /Users/baraka/eskele/Sources/Eskele/QuickSettings/MuteAudioQuickSetting.swift /Users/baraka/eskele/Sources/Eskele/QuickSettings/MuteMicQuickSetting.swift /Users/baraka/eskele/Sources/Eskele/QuickSettings/PomodoroQuickSetting.swift /Users/baraka/eskele/Sources/Eskele/QuickSettings/QuickSetting.swift /Users/baraka/eskele/Sources/Eskele/QuickSettings/QuickSettingsManager.swift /Users/baraka/eskele/Sources/Eskele/QuickSettings/RestartFinderQuickSetting.swift /Users/baraka/eskele/Sources/Eskele/QuickSettings/ScreenSaverQuickSetting.swift /Users/baraka/eskele/Sources/Eskele/QuickSettings/ScreenshotQuickSetting.swift /Users/baraka/eskele/Sources/Eskele/QuickSettings/ShowExtensionsQuickSetting.swift /Users/baraka/eskele/Sources/Eskele/QuickSettings/ShowFinderPathBarQuickSetting.swift /Users/baraka/eskele/Sources/Eskele/QuickSettings/ShowUserLibraryQuickSetting.swift /Users/baraka/eskele/Sources/Eskele/QuickSettings/SmallLaunchpadQuickSetting.swift /Users/baraka/eskele/Sources/Eskele/QuickSettings/SpeedTestController.swift /Users/baraka/eskele/Sources/Eskele/QuickSettings/SpeedTestQuickSetting.swift /Users/baraka/eskele/Sources/Eskele/QuickSettings/TrueToneQuickSetting.swift /Users/baraka/eskele/Sources/Eskele/QuickSettings/WiFiQuickSetting.swift /Users/baraka/eskele/Sources/Eskele/QuickSettings/XcodeCacheQuickSetting.swift /Users/baraka/eskele/Sources/Eskele/Services/AccessoryAppsService.swift /Users/baraka/eskele/Sources/Eskele/Services/ActivityService.swift /Users/baraka/eskele/Sources/Eskele/Services/AppCatalog.swift /Users/baraka/eskele/Sources/Eskele/Services/ApplicationURL.swift /Users/baraka/eskele/Sources/Eskele/Services/AttentionService.swift /Users/baraka/eskele/Sources/Eskele/Services/BadgeDiagnostics.swift /Users/baraka/eskele/Sources/Eskele/Services/BadgeService.swift /Users/baraka/eskele/Sources/Eskele/Services/Diagnostics.swift /Users/baraka/eskele/Sources/Eskele/Services/DockBadgeReader.swift /Users/baraka/eskele/Sources/Eskele/Services/FileProgressService.swift /Users/baraka/eskele/Sources/Eskele/Services/FullScreenMonitor.swift /Users/baraka/eskele/Sources/Eskele/Services/GlobalHotKey.swift /Users/baraka/eskele/Sources/Eskele/Services/IconOverrideService.swift /Users/baraka/eskele/Sources/Eskele/Services/IconService.swift /Users/baraka/eskele/Sources/Eskele/Services/KeyboardLayout.swift /Users/baraka/eskele/Sources/Eskele/Services/LoginItemService.swift /Users/baraka/eskele/Sources/Eskele/Services/ModifierWatcher.swift /Users/baraka/eskele/Sources/Eskele/Services/PermissionsService.swift /Users/baraka/eskele/Sources/Eskele/Services/Persistence.swift /Users/baraka/eskele/Sources/Eskele/Services/Poll.swift /Users/baraka/eskele/Sources/Eskele/Services/PowerService.swift /Users/baraka/eskele/Sources/Eskele/Services/ProgressDiagnostics.swift /Users/baraka/eskele/Sources/Eskele/Services/ProgressService.swift /Users/baraka/eskele/Sources/Eskele/Services/RecentAppsService.swift /Users/baraka/eskele/Sources/Eskele/Services/RightCommandWatcher.swift /Users/baraka/eskele/Sources/Eskele/Services/RunningAppsService.swift /Users/baraka/eskele/Sources/Eskele/Services/ScreenMetrics.swift /Users/baraka/eskele/Sources/Eskele/Services/ServicesProvider.swift /Users/baraka/eskele/Sources/Eskele/Services/SpaceWindowService.swift /Users/baraka/eskele/Sources/Eskele/Services/SupportDirectory.swift /Users/baraka/eskele/Sources/Eskele/Services/SystemCatalog.swift /Users/baraka/eskele/Sources/Eskele/Services/SystemDockController.swift /Users/baraka/eskele/Sources/Eskele/Services/SystemShortcuts.swift /Users/baraka/eskele/Sources/Eskele/Services/UpdateService.swift /Users/baraka/eskele/Sources/Eskele/Services/WindowDiagnostics.swift /Users/baraka/eskele/Sources/Eskele/Services/WindowInfoService.swift /Users/baraka/eskele/Sources/Eskele/Services/WindowObserver.swift /Users/baraka/eskele/Sources/Eskele/Services/WindowPreviewService.swift /Users/baraka/eskele/Sources/Eskele/Services/WindowService.swift /Users/baraka/eskele/Sources/Eskele/UI/BarContentView.swift /Users/baraka/eskele/Sources/Eskele/UI/BarLayoutSolver.swift /Users/baraka/eskele/Sources/Eskele/UI/BarSilhouette.swift /Users/baraka/eskele/Sources/Eskele/UI/DesignMenuRow.swift /Users/baraka/eskele/Sources/Eskele/UI/DesignPresetPicker.swift /Users/baraka/eskele/Sources/Eskele/UI/DragTypes.swift /Users/baraka/eskele/Sources/Eskele/UI/ItemView.swift /Users/baraka/eskele/Sources/Eskele/UI/LauncherPanelController.swift /Users/baraka/eskele/Sources/Eskele/UI/OnboardingView.swift /Users/baraka/eskele/Sources/Eskele/UI/PreferencesTabController.swift /Users/baraka/eskele/Sources/Eskele/UI/PreferencesView.swift /Users/baraka/eskele/Sources/Eskele/UI/ShortcutRecorder.swift /Users/baraka/eskele/Sources/Eskele/UI/StackMenuController.swift /Users/baraka/eskele/Sources/Eskele/UI/StatusItemIcon.swift /Users/baraka/eskele/Sources/Eskele/Views/BorderlessFlyout.swift /Users/baraka/eskele/Sources/Eskele/Views/CombinedFlyoutView.swift /Users/baraka/eskele/Sources/Eskele/Views/QuickSettingsFlyoutPanel.swift /Users/baraka/eskele/Sources/Eskele/Views/QuickSettingsTileView.swift /Users/baraka/eskele/Sources/Eskele/Windowing/AuxiliaryWindows.swift /Users/baraka/eskele/Sources/Eskele/Windowing/BarPanel.swift /Users/baraka/eskele/Sources/Eskele/Windowing/BarWindowController.swift /Users/baraka/eskele/Sources/Eskele/Windowing/CalendarPopover.swift /Users/baraka/eskele/Sources/Eskele/Windowing/EdgeTriggerWindow.swift /Users/baraka/eskele/Sources/Eskele/Windowing/HoverTooltip.swift /Users/baraka/eskele/Sources/Eskele/Windowing/LauncherPanel.swift /Users/baraka/eskele/Sources/Eskele/Windowing/ScreenCoordinator.swift -supplementary-output-file-map /Users/baraka/eskele/.build/out/Intermediates.noindex/Eskele.build/Release/Eskele-p.build/Objects-normal/arm64/supplementaryOutputs-2 -target arm64-apple-macos15.0 -disable-cross-import-overlay-search -swift-module-cross-import Darwin /Library/Developer/CommandLineTools/SDKs/MacOSX27.0.sdk/usr/include/Darwin.swiftcrossimport/xlocale.swiftoverlay -swift-module-cross-import ScreenCaptureKit /Library/Developer/CommandLineTools/SDKs/MacOSX27.0.sdk/System/Library/Frameworks/ScreenCaptureKit.framework/Modules/ScreenCaptureKit.swiftcrossimport/SwiftUI.swiftoverlay -swift-module-cross-import UserNotifications /Library/Developer/CommandLineTools/SDKs/MacOSX27.0.sdk/System/Library/Frameworks/UserNotifications.framework/Modules/UserNotifications.swiftcrossimport/AppIntents.swiftoverlay -load-resolved-plugin /Library/Developer/CommandLineTools/usr/lib/swift/host/plugins/libObservationMacros.dylib\#\#ObservationMacros -load-resolved-plugin /Library/Developer/CommandLineTools/usr/lib/swift/host/plugins/libSwiftMacros.dylib\#\#SwiftMacros -disable-implicit-swift-modules -Xcc -fno-implicit-modules -Xcc -fno-implicit-module-maps -explicit-swift-module-map-file /Users/baraka/eskele/.build/out/Intermediates.noindex/Eskele.build/Release/Eskele-p.build/Objects-normal/arm64/Eskele-dependencies-1.json -Xllvm -aarch64-use-tbi -enable-objc-interop -stack-check -sdk /Library/Developer/CommandLineTools/SDKs/MacOSX27.0.sdk -I /Users/baraka/eskele/.build/out/Products/Release -Isystem /Library/Developer/CommandLineTools/Developer/usr/lib -F /Users/baraka/eskele/.build/out/Products/Release/PackageFrameworks -F /Users/baraka/eskele/.build/out/Products/Release -F /Library/Developer/CommandLineTools/Library/Developer/Frameworks -F /Library/Developer/CommandLineTools/Developer/Library/Frameworks -module-cache-path /Users/baraka/eskele/.build/out/Intermediates.noindex/SwiftExplicitPrecompiledModules -color-diagnostics -Xcc -fcolor-diagnostics -g -debug-info-format\=dwarf -dwarf-version\=5 -swift-version 6 -O -D SWIFT_PACKAGE -D Xcode -serialize-debugging-options -enable-experimental-feature DebugDescriptionMacro -empty-abi-descriptor -validate-clang-modules-once -clang-build-session-file /Users/baraka/eskele/.build/out/ModuleCache.noindex/Session.modulevalidation -Xcc -working-directory -Xcc /Users/baraka -file-compilation-dir /Users/baraka -Xcc -ivfsstatcache -Xcc /Users/baraka/eskele/.build/out/SDKStatCaches.noindex/macosx27.0-26A425-1aa54e4a50e311dbd51de5aafe7eca3dffd68ff603bdaacc80b00cb8898de72d.sdkstatcache -Xcc -fmodules-prune-interval\=86400 -Xcc -fmodules-prune-after\=345600 -Xcc -I/Users/baraka/eskele/.build/out/Products/Release/include -Xcc -I/Users/baraka/eskele/.build/out/Intermediates.noindex/Eskele.build/Release/Eskele-p.build/DerivedSources-normal/arm64 -Xcc -I/Users/baraka/eskele/.build/out/Intermediates.noindex/Eskele.build/Release/Eskele-p.build/DerivedSources/arm64 -Xcc -I/Users/baraka/eskele/.build/out/Intermediates.noindex/Eskele.build/Release/Eskele-p.build/DerivedSources -Xcc -DSWIFT_PACKAGE -no-auto-bridging-header-chaining -module-name Eskele -package-name eskele -const-gather-protocols-file /Users/baraka/eskele/.build/out/Intermediates.noindex/Eskele.build/Release/Eskele-p.build/Objects-normal/arm64/Eskele_const_extract_protocols.json -disable-clang-spi -clang-target arm64-apple-macos27.0 -target-sdk-version 27.0 -target-sdk-name macosx27.0 -in-process-plugin-server-path /Library/Developer/CommandLineTools/usr/lib/swift/host/libSwiftInProcPluginServer.dylib -enable-default-cmo -num-threads 8 -o /Users/baraka/eskele/.build/out/Intermediates.noindex/Eskele.build/Release/Eskele-p.build/Objects-normal/arm64/AppDelegate.o -o /Users/baraka/eskele/.build/out/Intermediates.noindex/Eskele.build/Release/Eskele-p.build/Objects-normal/arm64/SettingsStore.o -o /Users/baraka/eskele/.build/out/Intermediates.noindex/Eskele.build/Release/Eskele-p.build/Objects-normal/arm64/StatusItemController.o -o /Users/baraka/eskele/.build/out/Intermediates.noindex/Eskele.build/Release/Eskele-p.build/Objects-normal/arm64/main.o -o /Users/baraka/eskele/.build/out/Intermediates.noindex/Eskele.build/Release/Eskele-p.build/Objects-normal/arm64/CalendarEventService.o -o /Users/baraka/eskele/.build/out/Intermediates.noindex/Eskele.build/Release/Eskele-p.build/Objects-normal/arm64/CalendarView.o -o /Users/baraka/eskele/.build/out/Intermediates.noindex/Eskele.build/Release/Eskele-p.build/Objects-normal/arm64/ActivationPolicy.o -o /Users/baraka/eskele/.build/out/Intermediates.noindex/Eskele.build/Release/Eskele-p.build/Objects-normal/arm64/ActivitySample.o -o /Users/baraka/eskele/.build/out/Intermediates.noindex/Eskele.build/Release/Eskele-p.build/Objects-normal/arm64/AppCategory.o -o /Users/baraka/eskele/.build/out/Intermediates.noindex/Eskele.build/Release/Eskele-p.build/Objects-normal/arm64/BarComposition.o -o /Users/baraka/eskele/.build/out/Intermediates.noindex/Eskele.build/Release/Eskele-p.build/Objects-normal/arm64/BarKeyboard.o -o /Users/baraka/eskele/.build/out/Intermediates.noindex/Eskele.build/Release/Eskele-p.build/Objects-normal/arm64/BarMetrics.o -o /Users/baraka/eskele/.build/out/Intermediates.noindex/Eskele.build/Release/Eskele-p.build/Objects-normal/arm64/BarOverlay.o -o /Users/baraka/eskele/.build/out/Intermediates.noindex/Eskele.build/Release/Eskele-p.build/Objects-normal/arm64/CellDescription.o -o /Users/baraka/eskele/.build/out/Intermediates.noindex/Eskele.build/Release/Eskele-p.build/Objects-normal/arm64/ClickAction.o -o /Users/baraka/eskele/.build/out/Intermediates.noindex/Eskele.build/Release/Eskele-p.build/Objects-normal/arm64/ClockContent.o -o /Users/baraka/eskele/.build/out/Intermediates.noindex/Eskele.build/Release/Eskele-p.build/Objects-normal/arm64/DesignPreset.o -o /Users/baraka/eskele/.build/out/Intermediates.noindex/Eskele.build/Release/Eskele-p.build/Objects-normal/arm64/DockItem.o -o /Users/baraka/eskele/.build/out/Intermediates.noindex/Eskele.build/Release/Eskele-p.build/Objects-normal/arm64/DockModel.o -o /Users/baraka/eskele/.build/out/Intermediates.noindex/Eskele.build/Release/Eskele-p.build/Objects-normal/arm64/HotKey.o -o /Users/baraka/eskele/.build/out/Intermediates.noindex/Eskele.build/Release/Eskele-p.build/Objects-normal/arm64/LauncherContent.o -o /Users/baraka/eskele/.build/out/Intermediates.noindex/Eskele.build/Release/Eskele-p.build/Objects-normal/arm64/PersistedItem.o -o /Users/baraka/eskele/.build/out/Intermediates.noindex/Eskele.build/Release/Eskele-p.build/Objects-normal/arm64/PowerAction.o -o /Users/baraka/eskele/.build/out/Intermediates.noindex/Eskele.build/Release/Eskele-p.build/Objects-normal/arm64/ProgressReport.o -o /Users/baraka/eskele/.build/out/Intermediates.noindex/Eskele.build/Release/Eskele-p.build/Objects-normal/arm64/ReorderSolver.o -o /Users/baraka/eskele/.build/out/Intermediates.noindex/Eskele.build/Release/Eskele-p.build/Objects-normal/arm64/Settings.o -o /Users/baraka/eskele/.build/out/Intermediates.noindex/Eskele.build/Release/Eskele-p.build/Objects-normal/arm64/SettingsFile.o -o /Users/baraka/eskele/.build/out/Intermediates.noindex/Eskele.build/Release/Eskele-p.build/Objects-normal/arm64/TrashPrompt.o -o /Users/baraka/eskele/.build/out/Intermediates.noindex/Eskele.build/Release/Eskele-p.build/Objects-normal/arm64/UpdatePolicy.o -o /Users/baraka/eskele/.build/out/Intermediates.noindex/Eskele.build/Release/Eskele-p.build/Objects-normal/arm64/AutohideDockQuickSetting.o -o /Users/baraka/eskele/.build/out/Intermediates.noindex/Eskele.build/Release/Eskele-p.build/Objects-normal/arm64/AutohideMenuBarQuickSetting.o -o /Users/baraka/eskele/.build/out/Intermediates.noindex/Eskele.build/Release/Eskele-p.build/Objects-normal/arm64/BluetoothQuickSetting.o -o /Users/baraka/eskele/.build/out/Intermediates.noindex/Eskele.build/Release/Eskele-p.build/Objects-normal/arm64/DarkModeQuickSetting.o -o /Users/baraka/eskele/.build/out/Intermediates.noindex/Eskele.build/Release/Eskele-p.build/Objects-normal/arm64/DockRecentAppsQuickSetting.o -o /Users/baraka/eskele/.build/out/Intermediates.noindex/Eskele.build/Release/Eskele-p.build/Objects-normal/arm64/EjectDiscsQuickSetting.o -o /Users/baraka/eskele/.build/out/Intermediates.noindex/Eskele.build/Release/Eskele-p.build/Objects-normal/arm64/EmptyPasteboardQuickSetting.o -o /Users/baraka/eskele/.build/out/Intermediates.noindex/Eskele.build/Release/Eskele-p.build/Objects-normal/arm64/EmptyTrashQuickSetting.o -o /Users/baraka/eskele/.build/out/Intermediates.noindex/Eskele.build/Release/Eskele-p.build/Objects-normal/arm64/HiddenFilesQuickSetting.o -o /Users/baraka/eskele/.build/out/Intermediates.noindex/Eskele.build/Release/Eskele-p.build/Objects-normal/arm64/HideDesktopQuickSetting.o -o /Users/baraka/eskele/.build/out/Intermediates.noindex/Eskele.build/Release/Eskele-p.build/Objects-normal/arm64/KeepAwakeQuickSetting.o -o /Users/baraka/eskele/.build/out/Intermediates.noindex/Eskele.build/Release/Eskele-p.build/Objects-normal/arm64/KeyboardLockQuickSetting.o -o /Users/baraka/eskele/.build/out/Intermediates.noindex/Eskele.build/Release/Eskele-p.build/Objects-normal/arm64/MuteAudioQuickSetting.o -o /Users/baraka/eskele/.build/out/Intermediates.noindex/Eskele.build/Release/Eskele-p.build/Objects-normal/arm64/MuteMicQuickSetting.o -o /Users/baraka/eskele/.build/out/Intermediates.noindex/Eskele.build/Release/Eskele-p.build/Objects-normal/arm64/PomodoroQuickSetting.o -o /Users/baraka/eskele/.build/out/Intermediates.noindex/Eskele.build/Release/Eskele-p.build/Objects-normal/arm64/QuickSetting.o -o /Users/baraka/eskele/.build/out/Intermediates.noindex/Eskele.build/Release/Eskele-p.build/Objects-normal/arm64/QuickSettingsManager.o -o /Users/baraka/eskele/.build/out/Intermediates.noindex/Eskele.build/Release/Eskele-p.build/Objects-normal/arm64/RestartFinderQuickSetting.o -o /Users/baraka/eskele/.build/out/Intermediates.noindex/Eskele.build/Release/Eskele-p.build/Objects-normal/arm64/ScreenSaverQuickSetting.o -o /Users/baraka/eskele/.build/out/Intermediates.noindex/Eskele.build/Release/Eskele-p.build/Objects-normal/arm64/ScreenshotQuickSetting.o -o /Users/baraka/eskele/.build/out/Intermediates.noindex/Eskele.build/Release/Eskele-p.build/Objects-normal/arm64/ShowExtensionsQuickSetting.o -o /Users/baraka/eskele/.build/out/Intermediates.noindex/Eskele.build/Release/Eskele-p.build/Objects-normal/arm64/ShowFinderPathBarQuickSetting.o -o /Users/baraka/eskele/.build/out/Intermediates.noindex/Eskele.build/Release/Eskele-p.build/Objects-normal/arm64/ShowUserLibraryQuickSetting.o -o /Users/baraka/eskele/.build/out/Intermediates.noindex/Eskele.build/Release/Eskele-p.build/Objects-normal/arm64/SmallLaunchpadQuickSetting.o -o /Users/baraka/eskele/.build/out/Intermediates.noindex/Eskele.build/Release/Eskele-p.build/Objects-normal/arm64/SpeedTestController.o -o /Users/baraka/eskele/.build/out/Intermediates.noindex/Eskele.build/Release/Eskele-p.build/Objects-normal/arm64/SpeedTestQuickSetting.o -o /Users/baraka/eskele/.build/out/Intermediates.noindex/Eskele.build/Release/Eskele-p.build/Objects-normal/arm64/TrueToneQuickSetting.o -o /Users/baraka/eskele/.build/out/Intermediates.noindex/Eskele.build/Release/Eskele-p.build/Objects-normal/arm64/WiFiQuickSetting.o -o /Users/baraka/eskele/.build/out/Intermediates.noindex/Eskele.build/Release/Eskele-p.build/Objects-normal/arm64/XcodeCacheQuickSetting.o -o /Users/baraka/eskele/.build/out/Intermediates.noindex/Eskele.build/Release/Eskele-p.build/Objects-normal/arm64/AccessoryAppsService.o -o /Users/baraka/eskele/.build/out/Intermediates.noindex/Eskele.build/Release/Eskele-p.build/Objects-normal/arm64/ActivityService.o -o /Users/baraka/eskele/.build/out/Intermediates.noindex/Eskele.build/Release/Eskele-p.build/Objects-normal/arm64/AppCatalog.o -o /Users/baraka/eskele/.build/out/Intermediates.noindex/Eskele.build/Release/Eskele-p.build/Objects-normal/arm64/ApplicationURL.o -o /Users/baraka/eskele/.build/out/Intermediates.noindex/Eskele.build/Release/Eskele-p.build/Objects-normal/arm64/AttentionService.o -o /Users/baraka/eskele/.build/out/Intermediates.noindex/Eskele.build/Release/Eskele-p.build/Objects-normal/arm64/BadgeDiagnostics.o -o /Users/baraka/eskele/.build/out/Intermediates.noindex/Eskele.build/Release/Eskele-p.build/Objects-normal/arm64/BadgeService.o -o /Users/baraka/eskele/.build/out/Intermediates.noindex/Eskele.build/Release/Eskele-p.build/Objects-normal/arm64/Diagnostics.o -o /Users/baraka/eskele/.build/out/Intermediates.noindex/Eskele.build/Release/Eskele-p.build/Objects-normal/arm64/DockBadgeReader.o -o /Users/baraka/eskele/.build/out/Intermediates.noindex/Eskele.build/Release/Eskele-p.build/Objects-normal/arm64/FileProgressService.o -o /Users/baraka/eskele/.build/out/Intermediates.noindex/Eskele.build/Release/Eskele-p.build/Objects-normal/arm64/FullScreenMonitor.o -o /Users/baraka/eskele/.build/out/Intermediates.noindex/Eskele.build/Release/Eskele-p.build/Objects-normal/arm64/GlobalHotKey.o -o /Users/baraka/eskele/.build/out/Intermediates.noindex/Eskele.build/Release/Eskele-p.build/Objects-normal/arm64/IconOverrideService.o -o /Users/baraka/eskele/.build/out/Intermediates.noindex/Eskele.build/Release/Eskele-p.build/Objects-normal/arm64/IconService.o -o /Users/baraka/eskele/.build/out/Intermediates.noindex/Eskele.build/Release/Eskele-p.build/Objects-normal/arm64/KeyboardLayout.o -o /Users/baraka/eskele/.build/out/Intermediates.noindex/Eskele.build/Release/Eskele-p.build/Objects-normal/arm64/LoginItemService.o -o /Users/baraka/eskele/.build/out/Intermediates.noindex/Eskele.build/Release/Eskele-p.build/Objects-normal/arm64/ModifierWatcher.o -o /Users/baraka/eskele/.build/out/Intermediates.noindex/Eskele.build/Release/Eskele-p.build/Objects-normal/arm64/PermissionsService.o -o /Users/baraka/eskele/.build/out/Intermediates.noindex/Eskele.build/Release/Eskele-p.build/Objects-normal/arm64/Persistence.o -o /Users/baraka/eskele/.build/out/Intermediates.noindex/Eskele.build/Release/Eskele-p.build/Objects-normal/arm64/Poll.o -o /Users/baraka/eskele/.build/out/Intermediates.noindex/Eskele.build/Release/Eskele-p.build/Objects-normal/arm64/PowerService.o -o /Users/baraka/eskele/.build/out/Intermediates.noindex/Eskele.build/Release/Eskele-p.build/Objects-normal/arm64/ProgressDiagnostics.o -o /Users/baraka/eskele/.build/out/Intermediates.noindex/Eskele.build/Release/Eskele-p.build/Objects-normal/arm64/ProgressService.o -o /Users/baraka/eskele/.build/out/Intermediates.noindex/Eskele.build/Release/Eskele-p.build/Objects-normal/arm64/RecentAppsService.o -o /Users/baraka/eskele/.build/out/Intermediates.noindex/Eskele.build/Release/Eskele-p.build/Objects-normal/arm64/RightCommandWatcher.o -o /Users/baraka/eskele/.build/out/Intermediates.noindex/Eskele.build/Release/Eskele-p.build/Objects-normal/arm64/RunningAppsService.o -o /Users/baraka/eskele/.build/out/Intermediates.noindex/Eskele.build/Release/Eskele-p.build/Objects-normal/arm64/ScreenMetrics.o -o /Users/baraka/eskele/.build/out/Intermediates.noindex/Eskele.build/Release/Eskele-p.build/Objects-normal/arm64/ServicesProvider.o -o /Users/baraka/eskele/.build/out/Intermediates.noindex/Eskele.build/Release/Eskele-p.build/Objects-normal/arm64/SpaceWindowService.o -o /Users/baraka/eskele/.build/out/Intermediates.noindex/Eskele.build/Release/Eskele-p.build/Objects-normal/arm64/SupportDirectory.o -o /Users/baraka/eskele/.build/out/Intermediates.noindex/Eskele.build/Release/Eskele-p.build/Objects-normal/arm64/SystemCatalog.o -o /Users/baraka/eskele/.build/out/Intermediates.noindex/Eskele.build/Release/Eskele-p.build/Objects-normal/arm64/SystemDockController.o -o /Users/baraka/eskele/.build/out/Intermediates.noindex/Eskele.build/Release/Eskele-p.build/Objects-normal/arm64/SystemShortcuts.o -o /Users/baraka/eskele/.build/out/Intermediates.noindex/Eskele.build/Release/Eskele-p.build/Objects-normal/arm64/UpdateService.o -o /Users/baraka/eskele/.build/out/Intermediates.noindex/Eskele.build/Release/Eskele-p.build/Objects-normal/arm64/WindowDiagnostics.o -o /Users/baraka/eskele/.build/out/Intermediates.noindex/Eskele.build/Release/Eskele-p.build/Objects-normal/arm64/WindowInfoService.o -o /Users/baraka/eskele/.build/out/Intermediates.noindex/Eskele.build/Release/Eskele-p.build/Objects-normal/arm64/WindowObserver.o -o /Users/baraka/eskele/.build/out/Intermediates.noindex/Eskele.build/Release/Eskele-p.build/Objects-normal/arm64/WindowPreviewService.o -o /Users/baraka/eskele/.build/out/Intermediates.noindex/Eskele.build/Release/Eskele-p.build/Objects-normal/arm64/WindowService.o -o /Users/baraka/eskele/.build/out/Intermediates.noindex/Eskele.build/Release/Eskele-p.build/Objects-normal/arm64/BarContentView.o -o /Users/baraka/eskele/.build/out/Intermediates.noindex/Eskele.build/Release/Eskele-p.build/Objects-normal/arm64/BarLayoutSolver.o -o /Users/baraka/eskele/.build/out/Intermediates.noindex/Eskele.build/Release/Eskele-p.build/Objects-normal/arm64/BarSilhouette.o -o /Users/baraka/eskele/.build/out/Intermediates.noindex/Eskele.build/Release/Eskele-p.build/Objects-normal/arm64/DesignMenuRow.o -o /Users/baraka/eskele/.build/out/Intermediates.noindex/Eskele.build/Release/Eskele-p.build/Objects-normal/arm64/DesignPresetPicker.o -o /Users/baraka/eskele/.build/out/Intermediates.noindex/Eskele.build/Release/Eskele-p.build/Objects-normal/arm64/DragTypes.o -o /Users/baraka/eskele/.build/out/Intermediates.noindex/Eskele.build/Release/Eskele-p.build/Objects-normal/arm64/ItemView.o -o /Users/baraka/eskele/.build/out/Intermediates.noindex/Eskele.build/Release/Eskele-p.build/Objects-normal/arm64/LauncherPanelController.o -o /Users/baraka/eskele/.build/out/Intermediates.noindex/Eskele.build/Release/Eskele-p.build/Objects-normal/arm64/OnboardingView.o -o /Users/baraka/eskele/.build/out/Intermediates.noindex/Eskele.build/Release/Eskele-p.build/Objects-normal/arm64/PreferencesTabController.o -o /Users/baraka/eskele/.build/out/Intermediates.noindex/Eskele.build/Release/Eskele-p.build/Objects-normal/arm64/PreferencesView.o -o /Users/baraka/eskele/.build/out/Intermediates.noindex/Eskele.build/Release/Eskele-p.build/Objects-normal/arm64/ShortcutRecorder.o -o /Users/baraka/eskele/.build/out/Intermediates.noindex/Eskele.build/Release/Eskele-p.build/Objects-normal/arm64/StackMenuController.o -o /Users/baraka/eskele/.build/out/Intermediates.noindex/Eskele.build/Release/Eskele-p.build/Objects-normal/arm64/StatusItemIcon.o -o /Users/baraka/eskele/.build/out/Intermediates.noindex/Eskele.build/Release/Eskele-p.build/Objects-normal/arm64/BorderlessFlyout.o -o /Users/baraka/eskele/.build/out/Intermediates.noindex/Eskele.build/Release/Eskele-p.build/Objects-normal/arm64/CombinedFlyoutView.o -o /Users/baraka/eskele/.build/out/Intermediates.noindex/Eskele.build/Release/Eskele-p.build/Objects-normal/arm64/QuickSettingsFlyoutPanel.o -o /Users/baraka/eskele/.build/out/Intermediates.noindex/Eskele.build/Release/Eskele-p.build/Objects-normal/arm64/QuickSettingsTileView.o -o /Users/baraka/eskele/.build/out/Intermediates.noindex/Eskele.build/Release/Eskele-p.build/Objects-normal/arm64/AuxiliaryWindows.o -o /Users/baraka/eskele/.build/out/Intermediates.noindex/Eskele.build/Release/Eskele-p.build/Objects-normal/arm64/BarPanel.o -o /Users/baraka/eskele/.build/out/Intermediates.noindex/Eskele.build/Release/Eskele-p.build/Objects-normal/arm64/BarWindowController.o -o /Users/baraka/eskele/.build/out/Intermediates.noindex/Eskele.build/Release/Eskele-p.build/Objects-normal/arm64/CalendarPopover.o -o /Users/baraka/eskele/.build/out/Intermediates.noindex/Eskele.build/Release/Eskele-p.build/Objects-normal/arm64/EdgeTriggerWindow.o -o /Users/baraka/eskele/.build/out/Intermediates.noindex/Eskele.build/Release/Eskele-p.build/Objects-normal/arm64/HoverTooltip.o -o /Users/baraka/eskele/.build/out/Intermediates.noindex/Eskele.build/Release/Eskele-p.build/Objects-normal/arm64/LauncherPanel.o -o /Users/baraka/eskele/.build/out/Intermediates.noindex/Eskele.build/Release/Eskele-p.build/Objects-normal/arm64/ScreenCoordinator.o -debug-module-path /Users/baraka/eskele/.build/out/Intermediates.noindex/Eskele.build/Release/Eskele-p.build/Objects-normal/arm64/Eskele.swiftmodule -index-unit-output-path /Eskele.build/Release/Eskele-p.build/Objects-normal/arm64/AppDelegate.o -index-unit-output-path /Eskele.build/Release/Eskele-p.build/Objects-normal/arm64/SettingsStore.o -index-unit-output-path /Eskele.build/Release/Eskele-p.build/Objects-normal/arm64/StatusItemController.o -index-unit-output-path /Eskele.build/Release/Eskele-p.build/Objects-normal/arm64/main.o -index-unit-output-path /Eskele.build/Release/Eskele-p.build/Objects-normal/arm64/CalendarEventService.o -index-unit-output-path /Eskele.build/Release/Eskele-p.build/Objects-normal/arm64/CalendarView.o -index-unit-output-path /Eskele.build/Release/Eskele-p.build/Objects-normal/arm64/ActivationPolicy.o -index-unit-output-path /Eskele.build/Release/Eskele-p.build/Objects-normal/arm64/ActivitySample.o -index-unit-output-path /Eskele.build/Release/Eskele-p.build/Objects-normal/arm64/AppCategory.o -index-unit-output-path /Eskele.build/Release/Eskele-p.build/Objects-normal/arm64/BarComposition.o -index-unit-output-path /Eskele.build/Release/Eskele-p.build/Objects-normal/arm64/BarKeyboard.o -index-unit-output-path /Eskele.build/Release/Eskele-p.build/Objects-normal/arm64/BarMetrics.o -index-unit-output-path /Eskele.build/Release/Eskele-p.build/Objects-normal/arm64/BarOverlay.o -index-unit-output-path /Eskele.build/Release/Eskele-p.build/Objects-normal/arm64/CellDescription.o -index-unit-output-path /Eskele.build/Release/Eskele-p.build/Objects-normal/arm64/ClickAction.o -index-unit-output-path /Eskele.build/Release/Eskele-p.build/Objects-normal/arm64/ClockContent.o -index-unit-output-path /Eskele.build/Release/Eskele-p.build/Objects-normal/arm64/DesignPreset.o -index-unit-output-path /Eskele.build/Release/Eskele-p.build/Objects-normal/arm64/DockItem.o -index-unit-output-path /Eskele.build/Release/Eskele-p.build/Objects-normal/arm64/DockModel.o -index-unit-output-path /Eskele.build/Release/Eskele-p.build/Objects-normal/arm64/HotKey.o -index-unit-output-path /Eskele.build/Release/Eskele-p.build/Objects-normal/arm64/LauncherContent.o -index-unit-output-path /Eskele.build/Release/Eskele-p.build/Objects-normal/arm64/PersistedItem.o -index-unit-output-path /Eskele.build/Release/Eskele-p.build/Objects-normal/arm64/PowerAction.o -index-unit-output-path /Eskele.build/Release/Eskele-p.build/Objects-normal/arm64/ProgressReport.o -index-unit-output-path /Eskele.build/Release/Eskele-p.build/Objects-normal/arm64/ReorderSolver.o -index-unit-output-path /Eskele.build/Release/Eskele-p.build/Objects-normal/arm64/Settings.o -index-unit-output-path /Eskele.build/Release/Eskele-p.build/Objects-normal/arm64/SettingsFile.o -index-unit-output-path /Eskele.build/Release/Eskele-p.build/Objects-normal/arm64/TrashPrompt.o -index-unit-output-path /Eskele.build/Release/Eskele-p.build/Objects-normal/arm64/UpdatePolicy.o -index-unit-output-path /Eskele.build/Release/Eskele-p.build/Objects-normal/arm64/AutohideDockQuickSetting.o -index-unit-output-path /Eskele.build/Release/Eskele-p.build/Objects-normal/arm64/AutohideMenuBarQuickSetting.o -index-unit-output-path /Eskele.build/Release/Eskele-p.build/Objects-normal/arm64/BluetoothQuickSetting.o -index-unit-output-path /Eskele.build/Release/Eskele-p.build/Objects-normal/arm64/DarkModeQuickSetting.o -index-unit-output-path /Eskele.build/Release/Eskele-p.build/Objects-normal/arm64/DockRecentAppsQuickSetting.o -index-unit-output-path /Eskele.build/Release/Eskele-p.build/Objects-normal/arm64/EjectDiscsQuickSetting.o -index-unit-output-path /Eskele.build/Release/Eskele-p.build/Objects-normal/arm64/EmptyPasteboardQuickSetting.o -index-unit-output-path /Eskele.build/Release/Eskele-p.build/Objects-normal/arm64/EmptyTrashQuickSetting.o -index-unit-output-path /Eskele.build/Release/Eskele-p.build/Objects-normal/arm64/HiddenFilesQuickSetting.o -index-unit-output-path /Eskele.build/Release/Eskele-p.build/Objects-normal/arm64/HideDesktopQuickSetting.o -index-unit-output-path /Eskele.build/Release/Eskele-p.build/Objects-normal/arm64/KeepAwakeQuickSetting.o -index-unit-output-path /Eskele.build/Release/Eskele-p.build/Objects-normal/arm64/KeyboardLockQuickSetting.o -index-unit-output-path /Eskele.build/Release/Eskele-p.build/Objects-normal/arm64/MuteAudioQuickSetting.o -index-unit-output-path /Eskele.build/Release/Eskele-p.build/Objects-normal/arm64/MuteMicQuickSetting.o -index-unit-output-path /Eskele.build/Release/Eskele-p.build/Objects-normal/arm64/PomodoroQuickSetting.o -index-unit-output-path /Eskele.build/Release/Eskele-p.build/Objects-normal/arm64/QuickSetting.o -index-unit-output-path /Eskele.build/Release/Eskele-p.build/Objects-normal/arm64/QuickSettingsManager.o -index-unit-output-path /Eskele.build/Release/Eskele-p.build/Objects-normal/arm64/RestartFinderQuickSetting.o -index-unit-output-path /Eskele.build/Release/Eskele-p.build/Objects-normal/arm64/ScreenSaverQuickSetting.o -index-unit-output-path /Eskele.build/Release/Eskele-p.build/Objects-normal/arm64/ScreenshotQuickSetting.o -index-unit-output-path /Eskele.build/Release/Eskele-p.build/Objects-normal/arm64/ShowExtensionsQuickSetting.o -index-unit-output-path /Eskele.build/Release/Eskele-p.build/Objects-normal/arm64/ShowFinderPathBarQuickSetting.o -index-unit-output-path /Eskele.build/Release/Eskele-p.build/Objects-normal/arm64/ShowUserLibraryQuickSetting.o -index-unit-output-path /Eskele.build/Release/Eskele-p.build/Objects-normal/arm64/SmallLaunchpadQuickSetting.o -index-unit-output-path /Eskele.build/Release/Eskele-p.build/Objects-normal/arm64/SpeedTestController.o -index-unit-output-path /Eskele.build/Release/Eskele-p.build/Objects-normal/arm64/SpeedTestQuickSetting.o -index-unit-output-path /Eskele.build/Release/Eskele-p.build/Objects-normal/arm64/TrueToneQuickSetting.o -index-unit-output-path /Eskele.build/Release/Eskele-p.build/Objects-normal/arm64/WiFiQuickSetting.o -index-unit-output-path /Eskele.build/Release/Eskele-p.build/Objects-normal/arm64/XcodeCacheQuickSetting.o -index-unit-output-path /Eskele.build/Release/Eskele-p.build/Objects-normal/arm64/AccessoryAppsService.o -index-unit-output-path /Eskele.build/Release/Eskele-p.build/Objects-normal/arm64/ActivityService.o -index-unit-output-path /Eskele.build/Release/Eskele-p.build/Objects-normal/arm64/AppCatalog.o -index-unit-output-path /Eskele.build/Release/Eskele-p.build/Objects-normal/arm64/ApplicationURL.o -index-unit-output-path /Eskele.build/Release/Eskele-p.build/Objects-normal/arm64/AttentionService.o -index-unit-output-path /Eskele.build/Release/Eskele-p.build/Objects-normal/arm64/BadgeDiagnostics.o -index-unit-output-path /Eskele.build/Release/Eskele-p.build/Objects-normal/arm64/BadgeService.o -index-unit-output-path /Eskele.build/Release/Eskele-p.build/Objects-normal/arm64/Diagnostics.o -index-unit-output-path /Eskele.build/Release/Eskele-p.build/Objects-normal/arm64/DockBadgeReader.o -index-unit-output-path /Eskele.build/Release/Eskele-p.build/Objects-normal/arm64/FileProgressService.o -index-unit-output-path /Eskele.build/Release/Eskele-p.build/Objects-normal/arm64/FullScreenMonitor.o -index-unit-output-path /Eskele.build/Release/Eskele-p.build/Objects-normal/arm64/GlobalHotKey.o -index-unit-output-path /Eskele.build/Release/Eskele-p.build/Objects-normal/arm64/IconOverrideService.o -index-unit-output-path /Eskele.build/Release/Eskele-p.build/Objects-normal/arm64/IconService.o -index-unit-output-path /Eskele.build/Release/Eskele-p.build/Objects-normal/arm64/KeyboardLayout.o -index-unit-output-path /Eskele.build/Release/Eskele-p.build/Objects-normal/arm64/LoginItemService.o -index-unit-output-path /Eskele.build/Release/Eskele-p.build/Objects-normal/arm64/ModifierWatcher.o -index-unit-output-path /Eskele.build/Release/Eskele-p.build/Objects-normal/arm64/PermissionsService.o -index-unit-output-path /Eskele.build/Release/Eskele-p.build/Objects-normal/arm64/Persistence.o -index-unit-output-path /Eskele.build/Release/Eskele-p.build/Objects-normal/arm64/Poll.o -index-unit-output-path /Eskele.build/Release/Eskele-p.build/Objects-normal/arm64/PowerService.o -index-unit-output-path /Eskele.build/Release/Eskele-p.build/Objects-normal/arm64/ProgressDiagnostics.o -index-unit-output-path /Eskele.build/Release/Eskele-p.build/Objects-normal/arm64/ProgressService.o -index-unit-output-path /Eskele.build/Release/Eskele-p.build/Objects-normal/arm64/RecentAppsService.o -index-unit-output-path /Eskele.build/Release/Eskele-p.build/Objects-normal/arm64/RightCommandWatcher.o -index-unit-output-path /Eskele.build/Release/Eskele-p.build/Objects-normal/arm64/RunningAppsService.o -index-unit-output-path /Eskele.build/Release/Eskele-p.build/Objects-normal/arm64/ScreenMetrics.o -index-unit-output-path /Eskele.build/Release/Eskele-p.build/Objects-normal/arm64/ServicesProvider.o -index-unit-output-path /Eskele.build/Release/Eskele-p.build/Objects-normal/arm64/SpaceWindowService.o -index-unit-output-path /Eskele.build/Release/Eskele-p.build/Objects-normal/arm64/SupportDirectory.o -index-unit-output-path /Eskele.build/Release/Eskele-p.build/Objects-normal/arm64/SystemCatalog.o -index-unit-output-path /Eskele.build/Release/Eskele-p.build/Objects-normal/arm64/SystemDockController.o -index-unit-output-path /Eskele.build/Release/Eskele-p.build/Objects-normal/arm64/SystemShortcuts.o -index-unit-output-path /Eskele.build/Release/Eskele-p.build/Objects-normal/arm64/UpdateService.o -index-unit-output-path /Eskele.build/Release/Eskele-p.build/Objects-normal/arm64/WindowDiagnostics.o -index-unit-output-path /Eskele.build/Release/Eskele-p.build/Objects-normal/arm64/WindowInfoService.o -index-unit-output-path /Eskele.build/Release/Eskele-p.build/Objects-normal/arm64/WindowObserver.o -index-unit-output-path /Eskele.build/Release/Eskele-p.build/Objects-normal/arm64/WindowPreviewService.o -index-unit-output-path /Eskele.build/Release/Eskele-p.build/Objects-normal/arm64/WindowService.o -index-unit-output-path /Eskele.build/Release/Eskele-p.build/Objects-normal/arm64/BarContentView.o -index-unit-output-path /Eskele.build/Release/Eskele-p.build/Objects-normal/arm64/BarLayoutSolver.o -index-unit-output-path /Eskele.build/Release/Eskele-p.build/Objects-normal/arm64/BarSilhouette.o -index-unit-output-path /Eskele.build/Release/Eskele-p.build/Objects-normal/arm64/DesignMenuRow.o -index-unit-output-path /Eskele.build/Release/Eskele-p.build/Objects-normal/arm64/DesignPresetPicker.o -index-unit-output-path /Eskele.build/Release/Eskele-p.build/Objects-normal/arm64/DragTypes.o -index-unit-output-path /Eskele.build/Release/Eskele-p.build/Objects-normal/arm64/ItemView.o -index-unit-output-path /Eskele.build/Release/Eskele-p.build/Objects-normal/arm64/LauncherPanelController.o -index-unit-output-path /Eskele.build/Release/Eskele-p.build/Objects-normal/arm64/OnboardingView.o -index-unit-output-path /Eskele.build/Release/Eskele-p.build/Objects-normal/arm64/PreferencesTabController.o -index-unit-output-path /Eskele.build/Release/Eskele-p.build/Objects-normal/arm64/PreferencesView.o -index-unit-output-path /Eskele.build/Release/Eskele-p.build/Objects-normal/arm64/ShortcutRecorder.o -index-unit-output-path /Eskele.build/Release/Eskele-p.build/Objects-normal/arm64/StackMenuController.o -index-unit-output-path /Eskele.build/Release/Eskele-p.build/Objects-normal/arm64/StatusItemIcon.o -index-unit-output-path /Eskele.build/Release/Eskele-p.build/Objects-normal/arm64/BorderlessFlyout.o -index-unit-output-path /Eskele.build/Release/Eskele-p.build/Objects-normal/arm64/CombinedFlyoutView.o -index-unit-output-path /Eskele.build/Release/Eskele-p.build/Objects-normal/arm64/QuickSettingsFlyoutPanel.o -index-unit-output-path /Eskele.build/Release/Eskele-p.build/Objects-normal/arm64/QuickSettingsTileView.o -index-unit-output-path /Eskele.build/Release/Eskele-p.build/Objects-normal/arm64/AuxiliaryWindows.o -index-unit-output-path /Eskele.build/Release/Eskele-p.build/Objects-normal/arm64/BarPanel.o -index-unit-output-path /Eskele.build/Release/Eskele-p.build/Objects-normal/arm64/BarWindowController.o -index-unit-output-path /Eskele.build/Release/Eskele-p.build/Objects-normal/arm64/CalendarPopover.o -index-unit-output-path /Eskele.build/Release/Eskele-p.build/Objects-normal/arm64/EdgeTriggerWindow.o -index-unit-output-path /Eskele.build/Release/Eskele-p.build/Objects-normal/arm64/HoverTooltip.o -index-unit-output-path /Eskele.build/Release/Eskele-p.build/Objects-normal/arm64/LauncherPanel.o -index-unit-output-path /Eskele.build/Release/Eskele-p.build/Objects-normal/arm64/ScreenCoordinator.o
+error: Build failed

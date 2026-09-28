@@ -24,7 +24,6 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     private let stacks = StackMenuController()
     private let catalog = AppCatalogService()
     private var recents: RecentAppsService!
-    private var launcher: LauncherPanelController!
     private let windows = WindowService()
     private let previews = WindowPreviewService()
     private let services = ServicesProvider()
@@ -41,6 +40,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     private var hotKeysSuspended = false
 
     func applicationDidFinishLaunching(_ notification: Notification) {
+        CalendarEventService.shared.checkPermission()
         settings = persistence.loadSettings()
         // A hand-edited file can turn off both routes to the settings window at once; the UI does
         // not allow it, so put the menu-bar icon back rather than launching unreachable.
@@ -61,7 +61,6 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         model = DockModel(persistence: persistence, running: running, settings: settings)
 
         recents = RecentAppsService(persistence: persistence)
-        launcher = LauncherPanelController(catalog: catalog, recents: recents)
         launcher.favorites = { [weak self] in self?.model.pinnedAppURLs() ?? [] }
         launcher.onShowSettings = { [weak self] in self?.statusItemDidShowPreferences() }
         catalog.refreshIfStale(maxAge: 0)
@@ -400,11 +399,10 @@ extension AppDelegate: BarContentViewDelegate {
     }
 
     func barContent(
-        _ view: BarContentView, showLauncherAt anchor: NSRect, onDismiss: @escaping () -> Void
+        _ view: BarContentView, showLauncherAt anchor: NSView, onDismiss: @escaping () -> Void
     ) -> Bool {
-        launcher.toggle(
-            anchor: anchor, edge: settings.edge, screen: view.window?.screen,
-            returningTo: coordinator.keyboardReturnApp, onDismiss: onDismiss)
+        LaunchpickManager.shared.toggle(relativeTo: anchor, onDismiss: onDismiss)
+        return LaunchpickManager.shared.isOpen
     }
 
     func barContent(_ view: BarContentView, didMove item: DockItem, toVisualIndex index: Int) {
