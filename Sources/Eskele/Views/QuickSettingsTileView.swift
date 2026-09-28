@@ -109,7 +109,44 @@ final class QuickSettingsTileView: NSView {
     }
 
     private func showFlyoutIfAvailable() -> Bool {
-        return false
+        let rootView: AnyView
+        switch setting {
+        case let speedTest as SpeedTestQuickSetting:
+            rootView = AnyView(
+                NetworkFlyoutView(
+                    monitor: speedTest.throughputMonitor,
+                    speedTest: speedTest.controller,
+                    onChange: { [weak self] in
+                        self?.refresh()
+                        self?.onToggle?()
+                    }
+                )
+            )
+        case let keyboardLock as KeyboardLockQuickSetting:
+            rootView = AnyView(
+                KeyboardLockFlyoutView(
+                    setting: keyboardLock,
+                    onChange: { [weak self] in
+                        self?.refresh()
+                        self?.onToggle?()
+                    }
+                )
+            )
+        default:
+            return false
+        }
+
+        if let flyout, flyout.isShown {
+            flyout.performClose(nil)
+            self.flyout = nil
+            return true
+        }
+
+        let popover = BorderlessFlyout()
+        
+        popover.show(contentViewController: NSHostingController(rootView: rootView), relativeTo: bounds, of: self)
+        flyout = popover
+        return true
     }
     
     override func rightMouseDown(with event: NSEvent) {
