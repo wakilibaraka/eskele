@@ -953,3 +953,90 @@ private struct PermissionPrompt: View {
         }
     }
 }
+
+// MARK: - Features
+
+struct FeaturesPane: View {
+    @Bindable var store: SettingsStore
+    weak var actions: (any PreferencesActions)?
+    
+    @ObservedObject var launchpickManager = LaunchpickConfigManager.shared
+    @AppStorage("launchpickShowPinnedApps") private var launchpickShowPinnedApps = true
+    @AppStorage("launchpickShowMostUsedApps") private var launchpickShowMostUsedApps = true
+    
+    class ViewState: ObservableObject {
+        @Published var isShowingStartMenuPicker = false
+    }
+    @StateObject private var state = ViewState()
+
+    var body: some View {
+        Form {
+            Section {
+                Toggle("Show Pinned Apps in Launcher", isOn: $launchpickShowPinnedApps)
+                Toggle("Show Most Used Apps in Launcher", isOn: $launchpickShowMostUsedApps)
+            } header: {
+                Text("Launcher Settings")
+            }
+            
+            Section {
+                List {
+                    ForEach(0..<launchpickManager.config.launchers.count, id: \.self) { index in
+                        let launcher = launchpickManager.config.launchers[index]
+                        HStack {
+                            Image(systemName: "app.fill")
+                                .resizable()
+                                .frame(width: 20, height: 20)
+                                .foregroundColor(.accentColor)
+                            
+                            VStack(alignment: .leading) {
+                                Text(launcher.name)
+                                Text(launcher.exec)
+                                    .font(.caption)
+                                    .foregroundColor(.secondary)
+                            }
+                            Spacer()
+                            Button(action: {
+                                launchpickManager.removeLauncher(at: index)
+                            }) {
+                                Image(systemName: "trash")
+                                    .foregroundColor(.red)
+                            }
+                            .buttonStyle(PlainButtonStyle())
+                        }
+                        .padding(.vertical, 4)
+                    }
+                    .onMove { source, destination in
+                        launchpickManager.moveLauncher(from: source, to: destination)
+                    }
+                }
+                .frame(minHeight: 150)
+                
+                Button("Add Application...") {
+                    state.isShowingStartMenuPicker = true
+                }
+            } header: {
+                Text("Launcher Pinned Apps")
+            } footer: {
+                FooterText("Apps pinned to the grid in the launcher.")
+            }
+        }
+        .formStyle(.grouped)
+        .fileImporter(
+            isPresented: $state.isShowingStartMenuPicker,
+            allowedContentTypes: [.application],
+            allowsMultipleSelection: false
+        ) { result in
+            switch result {
+            case .success(let urls):
+                if let url = urls.first, let bundle = Bundle(url: url) {
+                    let name = (bundle.infoDictionary?["CFBundleName"] as? String) ?? url.deletingPathExtension().lastPathComponent
+                    let exec = "open -a '\(name)'"
+                    let launcher = ConfigLauncher(name: name, exec: exec, icon: nil)
+                    launchpickManager.addLauncher(launcher)
+                }
+            case .failure(let error):
+                print("Failed to select app: \(error.localizedDescription)")
+            }
+        }
+    }
+}

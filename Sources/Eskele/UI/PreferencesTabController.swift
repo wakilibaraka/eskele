@@ -12,6 +12,7 @@ enum PreferencesPane: CaseIterable {
     case contents
     case behaviour
     case systemDock
+    case features
     case general
 
     var title: String {
@@ -20,6 +21,7 @@ enum PreferencesPane: CaseIterable {
         case .contents: String(localized: "Contents", comment: "Settings tab: what goes on the bar")
         case .behaviour: String(localized: "Behaviour", comment: "Settings tab: how the bar acts")
         case .systemDock: String(localized: "System Dock", comment: "Settings tab: what to do with the macOS Dock")
+        case .features: String(localized: "Features", comment: "Settings tab: launcher and quick settings")
         case .general: String(localized: "General", comment: "Settings tab: permissions, login item, updates")
         }
     }
@@ -30,6 +32,7 @@ enum PreferencesPane: CaseIterable {
         case .contents: "square.grid.2x2"
         case .behaviour: "cursorarrow.motionlines"
         case .systemDock: "dock.rectangle"
+        case .features: "star.fill"
         case .general: "gearshape"
         }
     }
@@ -43,6 +46,7 @@ enum PreferencesPane: CaseIterable {
         case .contents: NSSize(width: 520, height: 600)
         case .behaviour: NSSize(width: 520, height: 640)
         case .systemDock: NSSize(width: 520, height: 210)
+        case .features: NSSize(width: 520, height: 600)
         case .general: NSSize(width: 520, height: 700)
         }
     }
@@ -84,6 +88,7 @@ final class PreferencesTabController: NSTabViewController {
         case .contents: NSHostingController(rootView: ContentsPane(store: store, actions: actions))
         case .behaviour: NSHostingController(rootView: BehaviourPane(store: store, actions: actions))
         case .systemDock: NSHostingController(rootView: SystemDockPane(store: store, actions: actions))
+        case .features: NSHostingController(rootView: FeaturesPane(store: store, actions: actions))
         case .general:
             NSHostingController(rootView: GeneralPane(store: store, actions: actions, updates: updates))
         }
