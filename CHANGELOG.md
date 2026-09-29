@@ -12,6 +12,33 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 
 ## [Unreleased]
 
+### Changed
+
+- The **minimum system is macOS 13**, down from 14: the settings store and every preferences pane
+  have moved off the macOS 14 Observation framework onto Combine, so Eskele runs one system
+  generation further back.
+
+### Fixed
+
+- The build, which the porting work had left broken. Both committed heads failed to compile: the
+  launcher port removed the old launcher while still calling it from the app delegate, and the
+  Features pane asked the update stub for members it never had. The app delegate now drives the
+  ported Launchpick launcher, the update service answers every call its settings surface makes, and
+  the actor-isolation and availability errors that followed are resolved.
+- Ported pieces that were lost in transit are back: the bluetooth icon, the launcher blacklist and
+  style, and the pure search and grouping logic the launcher lists and the tests still pin.
+- macOS 14-only system calls — window activation, the quadratic bezier, menu section headers,
+  EventKit full access, and ScreenCaptureKit screenshots — are availability-gated with macOS 13
+  equivalents, so nothing the port shipped disappears on the older system.
+- The launcher, calendar and flyout strings from the port are in the English catalogue, and the
+  six catalogue entries the old launcher left behind are gone, so the localization contract tests
+  hold again.
+
+### Added
+
+- The launch keys now work on macOS 13 through availability shims, and the localization scanner no
+  longer mistakes SF Symbol names and selector literals for translatable copy.
+
 ## [0.1.2] - 2026-09-28
 
 ### Changed

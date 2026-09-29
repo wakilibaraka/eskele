@@ -533,7 +533,7 @@ final class WindowService {
         AXUIElementSetAttributeValue(
             window.element, kAXMinimizedAttribute as CFString,
             minimized ? kCFBooleanTrue : kCFBooleanFalse)
-        if !minimized { NSRunningApplication(processIdentifier: reference.pid)?.activate() }
+        if !minimized { NSRunningApplication(processIdentifier: reference.pid)?.activateCompat() }
         return true
     }
 
@@ -642,7 +642,7 @@ final class WindowService {
     /// An agent has to ask for activation explicitly; ordering the window front on its own would
     /// leave it behind whatever the user was last in.
     private func activateOwn(_ window: NSWindow) {
-        NSApplication.shared.activate()
+        NSApplication.shared.activateCompat()
         window.makeKeyAndOrderFront(nil)
     }
 
@@ -682,7 +682,7 @@ final class WindowService {
         if window.isMenuProxy {
             // Measured: the app has to be frontmost before its menu item will carry us across the
             // Space, so the activation leads and the press follows a beat later.
-            NSRunningApplication(processIdentifier: pid)?.activate()
+            NSRunningApplication(processIdentifier: pid)?.activateCompat()
             let item = window.element
             DispatchQueue.main.asyncAfter(deadline: .now() + WindowService.menuPressDelay) {
                 AXUIElementPerformAction(item, kAXPressAction as CFString)
@@ -696,7 +696,7 @@ final class WindowService {
         // Raising makes it the app's front window; activating is then what follows it into its
         // Space. Order matters — activate first and macOS goes to whichever window was already
         // frontmost, which for a full-screen window elsewhere is the wrong one.
-        NSRunningApplication(processIdentifier: pid)?.activate()
+        NSRunningApplication(processIdentifier: pid)?.activateCompat()
     }
 
     private func string(of element: AXUIElement, _ attribute: String) -> String? {

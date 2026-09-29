@@ -39,7 +39,7 @@ final class PowerService {
         let alert = alert(for: action)
         // An agent owns no windows, so the alert has nothing to attach to and has to be brought
         // forward itself — otherwise it opens behind whatever the user was looking at.
-        NSApp.activate()
+        NSApp.activateCompat()
         return alert.runModal() == .alertFirstButtonReturn
     }
 

@@ -109,9 +109,20 @@ final class WindowPreviewService {
 
         let filter = SCContentFilter(desktopIndependentWindow: window)
         do {
-            let image = try await SCScreenshotManager.captureImage(
-                contentFilter: filter, configuration: configuration)
-            return NSImage(cgImage: image, size: NSSize(width: width, height: height))
+            // `SCScreenshotManager` is macOS 14+; on macOS 13 the same buffer comes back from the
+            // legacy `CGWindowListCreateImage` keyed on the window's own id.
+            let cgImage: CGImage
+            if #available(macOS 14.0, *) {
+                cgImage = try await SCScreenshotManager.captureImage(
+                    contentFilter: filter, configuration: configuration)
+            } else {
+                guard let legacy = CGWindowListCreateImage(
+                    .null, .optionIncludingWindow, window.windowID,
+                    [.bestResolution, .boundsIgnoreFraming])
+                else { return nil }
+                cgImage = legacy
+            }
+            return NSImage(cgImage: cgImage, size: NSSize(width: width, height: height))
         } catch {
             return nil
         }

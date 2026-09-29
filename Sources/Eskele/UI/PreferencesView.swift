@@ -49,7 +49,7 @@ private struct FooterText: View {
 // MARK: - Appearance
 
 struct AppearancePane: View {
-    @Bindable var store: SettingsStore
+    @ObservedObject var store: SettingsStore
 
     private var settings: Settings { store.settings }
 
@@ -244,10 +244,13 @@ struct AppearancePane: View {
 
 /// What goes on the bar: which cells appear, and what each one is allowed to draw on itself.
 struct ContentsPane: View {
-    @Bindable var store: SettingsStore
+    @ObservedObject var store: SettingsStore
     weak var actions: (any PreferencesActions)?
 
-    @State private var accessibility = PermissionsService.accessibilityStatus
+    @MainActor class ViewState: ObservableObject {
+        @Published var accessibility = PermissionsService.accessibilityStatus
+    }
+    @StateObject private var state = ViewState()
 
     private var settings: Settings { store.settings }
 
@@ -261,10 +264,10 @@ struct ContentsPane: View {
                     .help(settings.showRunningUnpinned
                         ? "A menu-bar app gets a cell only while a window of its own is open."
                         : "Only applies when running apps that aren't pinned are shown.")
-                if settings.tracksAccessoryApps, accessibility != .granted {
+                if settings.tracksAccessoryApps, state.accessibility != .granted {
                     PermissionPrompt(message: "Listing their windows needs Accessibility.") {
                         actions?.requestAccessibility()
-                        accessibility = PermissionsService.accessibilityStatus
+                        state.accessibility = PermissionsService.accessibilityStatus
                     }
                 }
                 Toggle("Show the Trash", isOn: $store.settings.showTrash)
@@ -333,10 +336,10 @@ struct ContentsPane: View {
 
             Section {
                 Toggle("Highlight apps that need attention", isOn: $store.settings.highlightAttention)
-                if accessibility != .granted {
+                if state.accessibility != .granted {
                     PermissionPrompt(message: "Needs Accessibility.") {
                         actions?.requestAccessibility()
-                        accessibility = PermissionsService.accessibilityStatus
+                        state.accessibility = PermissionsService.accessibilityStatus
                     }
                 }
             } header: {
@@ -346,7 +349,7 @@ struct ContentsPane: View {
             }
         }
         .formStyle(.grouped)
-        .onAppear { accessibility = PermissionsService.accessibilityStatus }
+        .onAppear { state.accessibility = PermissionsService.accessibilityStatus }
     }
 
     private var clockNote: String {
@@ -445,16 +448,16 @@ struct ContentsPane: View {
 
 /// How the bar acts: the Apps Menu, hiding, shortcuts, displays and full screen.
 struct BehaviourPane: View {
-    @Bindable var store: SettingsStore
+    @ObservedObject var store: SettingsStore
     weak var actions: (any PreferencesActions)?
 
-    @State private var accessibility = PermissionsService.accessibilityStatus
-    @State private var screenRecording = PermissionsService.screenRecordingStatus
-    /// Read on appear and after each recording, since they can change in System Settings while this
-    /// window is open.
-    @State private var systemShortcuts: Set<KeyCombination> = []
-    /// Why the key just pressed at a recorder was refused. Only while that recorder is listening.
-    @State private var refusals: [HotKeyRole: HotKeyProblem] = [:]
+    @MainActor class ViewState: ObservableObject {
+        @Published var accessibility = PermissionsService.accessibilityStatus
+        @Published var screenRecording = PermissionsService.screenRecordingStatus
+        @Published var systemShortcuts: Set<KeyCombination> = []
+        @Published var refusals: [HotKeyRole: HotKeyProblem] = [:]
+    }
+    @StateObject private var state = ViewState()
 
     private var settings: Settings { store.settings }
 
@@ -568,7 +571,7 @@ struct BehaviourPane: View {
             } footer: {
                 FooterText(
                     settings.screenMode == .perDisplay ? perDisplayNote : nil,
-                    settings.windowPreviews && screenRecording != .granted ? previewNote : nil,
+                    settings.windowPreviews && state.screenRecording != .granted ? previewNote : nil,
                     settings.sortOrder != .manual ? sortOrderNote : nil)
             }
 
@@ -576,12 +579,12 @@ struct BehaviourPane: View {
                 Picker("In full screen", selection: $store.settings.fullScreenBehavior) {
                     ForEach(FullScreenBehavior.allCases, id: \.self) { Text($0.title).tag($0) }
                 }
-                .disabled(accessibility != .granted)
+                .disabled(state.accessibility != .granted)
 
-                if accessibility != .granted {
+                if state.accessibility != .granted {
                     PermissionPrompt(message: "Detecting full screen needs Accessibility.") {
                         actions?.requestAccessibility()
-                        accessibility = PermissionsService.accessibilityStatus
+                        state.accessibility = PermissionsService.accessibilityStatus
                     }
                 }
             } header: {
@@ -592,15 +595,15 @@ struct BehaviourPane: View {
         }
         .formStyle(.grouped)
         .onAppear {
-            accessibility = PermissionsService.accessibilityStatus
-            screenRecording = PermissionsService.screenRecordingStatus
-            systemShortcuts = SystemShortcuts.enabled()
+            state.accessibility = PermissionsService.accessibilityStatus
+            state.screenRecording = PermissionsService.screenRecordingStatus
+            state.systemShortcuts = SystemShortcuts.enabled()
         }
     }
 
     private var hotKeyReview: HotKeyReview {
         HotKeyReview(
-            settings: settings, system: systemShortcuts, unavailable: store.unavailableHotKeys)
+            settings: settings, system: state.systemShortcuts, unavailable: store.unavailableHotKeys)
     }
 
     private func recorder(
@@ -616,10 +619,10 @@ struct BehaviourPane: View {
                     .refusal(of: candidate, for: role)
             },
             onRecord: record,
-            onRefuse: { refusals[role] = $0 },
+            onRefuse: { state.refusals[role] = $0 },
             onRecordingChange: { recording in
                 actions?.setHotKeysSuspended(recording)
-                if !recording { systemShortcuts = SystemShortcuts.enabled() }
+                if !recording { state.systemShortcuts = SystemShortcuts.enabled() }
             })
             // Its own width, like every other control here, rather than the whole trailing column.
             .fixedSize()
@@ -648,7 +651,7 @@ struct BehaviourPane: View {
     /// failing that whatever is wrong with the one in place.
     @ViewBuilder
     private func hotKeyWarning(for role: HotKeyRole) -> some View {
-        if let problem = refusals[role] ?? hotKeyReview.problem(for: role) {
+        if let problem = state.refusals[role] ?? hotKeyReview.problem(for: role) {
             HStack(alignment: .firstTextBaseline, spacing: 8) {
                 Image(systemName: "exclamationmark.triangle.fill").foregroundStyle(.orange)
                 Text(problem.message).font(.callout).fixedSize(horizontal: false, vertical: true)
@@ -682,7 +685,7 @@ struct BehaviourPane: View {
     }
 
     private var perDisplayNote: String {
-        accessibility == .granted
+        state.accessibility == .granted
             ? String(
                 localized: """
                     Each display's bar lists only the apps with a window on it. Pinned shortcuts, the \
@@ -748,7 +751,7 @@ struct BehaviourPane: View {
 // MARK: - System Dock
 
 struct SystemDockPane: View {
-    @Bindable var store: SettingsStore
+    @ObservedObject var store: SettingsStore
     weak var actions: (any PreferencesActions)?
 
     private var settings: Settings { store.settings }
@@ -779,14 +782,17 @@ struct SystemDockPane: View {
 // MARK: - General
 
 struct GeneralPane: View {
-    @Bindable var store: SettingsStore
+    @ObservedObject var store: SettingsStore
     weak var actions: (any PreferencesActions)?
     let updates: UpdateService
 
-    @State private var launchAtLogin = LoginItemService.isEnabled
-    @State private var automation = PermissionsService.automationStatus()
-    @State private var accessibility = PermissionsService.accessibilityStatus
-    @State private var screenRecording = PermissionsService.screenRecordingStatus
+    @MainActor class ViewState: ObservableObject {
+        @Published var launchAtLogin = LoginItemService.isEnabled
+        @Published var automation = PermissionsService.automationStatus()
+        @Published var accessibility = PermissionsService.accessibilityStatus
+        @Published var screenRecording = PermissionsService.screenRecordingStatus
+    }
+    @StateObject private var state = ViewState()
 
     private var settings: Settings { store.settings }
 
@@ -796,8 +802,8 @@ struct GeneralPane: View {
                 Toggle("Show the menu bar icon", isOn: $store.settings.showStatusItem)
                     .disabled(!settings.showAppsMenu)
                 Toggle("Launch Eskele at login", isOn: Binding(
-                    get: { launchAtLogin },
-                    set: { launchAtLogin = $0; actions?.setLaunchAtLogin($0) }
+                    get: { state.launchAtLogin },
+                    set: { state.launchAtLogin = $0; actions?.setLaunchAtLogin($0) }
                 ))
             } footer: {
                 FooterText(
@@ -838,13 +844,13 @@ struct GeneralPane: View {
             Section("Permissions") {
                 permissionRow(
                     "Control Finder", "Needed only to empty the Trash.",
-                    automation, PermissionsService.openAutomationSettings)
+                    state.automation, PermissionsService.openAutomationSettings)
                 permissionRow(
                     "Accessibility", "Needed only to list an app's windows.",
-                    accessibility, { actions?.requestAccessibility() })
+                    state.accessibility, { actions?.requestAccessibility() })
                 permissionRow(
                     "Screen Recording", "Needed only to preview a window on hover.",
-                    screenRecording, {
+                    state.screenRecording, {
                         // The system prompt appears once and never again; after that only the
                         // settings pane can change the answer, so open it either way.
                         PermissionsService.requestScreenRecording()
@@ -930,10 +936,10 @@ struct GeneralPane: View {
         comment: "Footer under the export, import and restore defaults buttons")
 
     private func refreshStatuses() {
-        launchAtLogin = LoginItemService.isEnabled
-        automation = PermissionsService.automationStatus()
-        accessibility = PermissionsService.accessibilityStatus
-        screenRecording = PermissionsService.screenRecordingStatus
+        state.launchAtLogin = LoginItemService.isEnabled
+        state.automation = PermissionsService.automationStatus()
+        state.accessibility = PermissionsService.accessibilityStatus
+        state.screenRecording = PermissionsService.screenRecordingStatus
     }
 }
 
@@ -957,15 +963,16 @@ private struct PermissionPrompt: View {
 // MARK: - Features
 
 struct FeaturesPane: View {
-    @Bindable var store: SettingsStore
+    @ObservedObject var store: SettingsStore
     weak var actions: (any PreferencesActions)?
     
     @ObservedObject var launchpickManager = LaunchpickConfigManager.shared
     @AppStorage("launchpickShowPinnedApps") private var launchpickShowPinnedApps = true
     @AppStorage("launchpickShowMostUsedApps") private var launchpickShowMostUsedApps = true
     
-    class ViewState: ObservableObject {
+    @MainActor class ViewState: ObservableObject {
         @Published var isShowingStartMenuPicker = false
+        @Published var accessibility = PermissionsService.accessibilityStatus
     }
     @StateObject private var state = ViewState()
 

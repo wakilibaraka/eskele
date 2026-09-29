@@ -13,7 +13,7 @@ private final class Recorder: BarContentViewDelegate {
     }
     func barContent(_ view: BarContentView, stackMenuFor item: DockItem) -> NSMenu? { nil }
     func barContent(
-        _ view: BarContentView, showLauncherAt anchor: NSRect, onDismiss: @escaping () -> Void
+        _ view: BarContentView, showLauncherAt anchor: NSView, onDismiss: @escaping () -> Void
     ) -> Bool { false }
     func barContent(_ view: BarContentView, menuFor item: DockItem) -> NSMenu { NSMenu() }
     func barContent(_ view: BarContentView, menuForBackgroundAt index: Int) -> NSMenu { NSMenu() }

@@ -57,8 +57,13 @@ final class StatusItemController: NSObject, NSMenuDelegate {
         //
         // The designs themselves rather than a submenu holding them. It makes the menu as wide as
         // four tiles, which is the price of being able to read the answer without opening anything.
-        menu.addItem(.sectionHeader(title: String(
-            localized: "Design", comment: "Menu heading over the design tiles")))
+        // The macOS-14 `.sectionHeader(title:)` is unavailable on the macOS 13 deployment target;
+        // a disabled small-caps item is its standard substitute.
+        let designHeading = NSMenuItem(
+            title: String(localized: "Design", comment: "Menu heading over the design tiles"),
+            action: nil, keyEquivalent: "")
+        designHeading.isEnabled = false
+        menu.addItem(designHeading)
         let designRow = NSMenuItem()
         designRow.view = DesignMenuRow(settings: settings) { [weak self] preset in
             self?.selectDesign(preset)
@@ -72,7 +77,9 @@ final class StatusItemController: NSObject, NSMenuDelegate {
         preferences.target = self
         menu.addItem(preferences)
 
-        if updates.isAvailable { menu.addItem(updateItem()) }
+        // `canCheck` is always true in the Sparkle-less stub; an update is only worth a menu row
+        // when a check has actually found one and is holding it back.
+        if updates.waitingVersion != nil { menu.addItem(updateItem()) }
 
         let hideIcon = NSMenuItem(
             title: String(

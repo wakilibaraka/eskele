@@ -25,18 +25,36 @@ final class CalendarEventService: ObservableObject {
     
     func checkPermission() {
         let status = EKEventStore.authorizationStatus(for: .event)
-        if status == .fullAccess || status == .authorized {
+        // EventKit's `.fullAccess` and `requestFullAccessToEvents` are macOS 14+; macOS 13 still
+        // speaks the pre-14 `.authorized` / `requestAccess(to:completion:)` API, which is what the
+        // availability gate below uses there.
+        let granted: Bool
+        if #available(macOS 14.0, *) {
+            granted = status == .fullAccess || status == .authorized
+        } else {
+            granted = status == .authorized
+        }
+        if granted {
             isAuthorized = true
             fetchEvents()
         } else if status == .notDetermined {
-            store.requestFullAccessToEvents { [weak self] granted, _ in
+            requestAccess { [weak self] authorized in
                 DispatchQueue.main.async {
-                    self?.isAuthorized = granted
-                    if granted {
+                    self?.isAuthorized = authorized
+                    if authorized {
                         self?.fetchEvents()
                     }
                 }
             }
+        }
+    }
+
+    /// One funnel for both the macOS 14+ and the pre-14 request APIs.
+    private func requestAccess(_ completion: @escaping (Bool) -> Void) {
+        if #available(macOS 14.0, *) {
+            store.requestFullAccessToEvents { granted, _ in completion(granted) }
+        } else {
+            store.requestAccess(to: .event, completion: { granted, _ in completion(granted) })
         }
     }
     

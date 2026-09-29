@@ -3,7 +3,7 @@ import PackageDescription
 
 let package = Package(
     name: "Eskele",
-    platforms: [.macOS(.v14)],
+    platforms: [.macOS(.v13)],
     products: [
         .executable(name: "Eskele", targets: ["Eskele"]),
         .library(name: "DockPrefsKit", targets: ["DockPrefsKit"]),

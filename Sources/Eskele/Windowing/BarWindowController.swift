@@ -267,7 +267,7 @@ final class BarWindowController {
         panel.acceptsKeyboard = true
         // Before activating: until then the cells still say which app is in front.
         content.beginKeyboardNavigation()
-        NSApp.activate()
+        NSApp.activateCompat()
         panel.makeKeyAndOrderFront(nil)
 
         // However the keyboard leaves — Return opening an app, a click somewhere else, the launcher
@@ -294,7 +294,7 @@ final class BarWindowController {
 
         guard restoringFocus, NSWorkspace.shared.frontmostApplication == .current else { return }
         if let returnApp, returnApp != .current, !returnApp.isTerminated {
-            returnApp.activate()
+            returnApp.activateCompat()
         } else {
             // Nobody to go back to — the app that was in front has quit since. Stepping aside lets
             // macOS pick, which beats leaving the keyboard with an agent that owns no windows.

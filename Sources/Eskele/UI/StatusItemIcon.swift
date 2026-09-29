@@ -78,9 +78,12 @@ enum StatusItemIcon {
             // Crest, trough, crest, trough: the control point changes side each half-wave, which is
             // what the SVG says with one Q and a run of Ts.
             let lift = i.isMultiple(of: 2) ? -amplitude : amplitude
+            // The quadratic `curve(to:controlPoint:)` is macOS 14+; a cubic with both control
+            // points on the quadratic's single control point draws exactly the same curve.
             path.curve(
                 to: NSPoint(x: start + half, y: baseline),
-                controlPoint: NSPoint(x: start + half / 2, y: baseline + lift))
+                controlPoint1: NSPoint(x: start + half / 2, y: baseline + lift),
+                controlPoint2: NSPoint(x: start + half / 2, y: baseline + lift))
         }
         path.lineWidth = 14 * scale
         path.lineCapStyle = .round

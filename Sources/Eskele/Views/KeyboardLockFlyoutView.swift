@@ -10,10 +10,11 @@ struct KeyboardLockFlyoutView: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 14) {
-            Label(
-                setting.isOn ? "Keyboard Locked" : "Keyboard Lock",
-                systemImage: setting.isOn ? "lock.fill" : "keyboard"
-            )
+            Label {
+                Text(setting.isOn ? "Keyboard Locked" : "Keyboard Lock")
+            } icon: {
+                Image(systemName: setting.isOn ? "lock.fill" : "keyboard")
+            }
             .font(.headline)
 
             if setting.isOn {

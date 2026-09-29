@@ -619,7 +619,7 @@ final class DockModel {
     /// so a second copy can only be reached through its process — at the cost of the reopen event,
     /// which is the one thing `open` carries that `activate` does not.
     private func bringForward(_ ref: AppRef, copy: NSRunningApplication?) {
-        if let copy { copy.activate() } else { open(ref.url) }
+        if let copy { copy.activateCompat() } else { open(ref.url) }
     }
 
     /// Launch, or bring forward and reopen.

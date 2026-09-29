@@ -262,7 +262,7 @@ struct ContentView: View {
             // Phase 3 Footer
             LauncherFooterView()
         }
-        .onChange(of: state.searchText) { _, _ in
+        .onChange(of: state.searchText) { _ in
             state.selectedIndex = 0
         }
     }

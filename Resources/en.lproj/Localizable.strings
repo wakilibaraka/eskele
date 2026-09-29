@@ -714,14 +714,6 @@
    AppCategory.swift:75 */
 "News" = "News";
 
-/* Shown in place of the list when a search finds nothing
-   LauncherPanelController.swift:188 */
-"No apps match “%@”" = "No apps match “%@”";
-
-/* Shown when nothing has been launched yet
-   LauncherPanelController.swift:195 */
-"No recent apps yet" = "No recent apps yet";
-
 /* Trade-off of the Off shortcut choice
    Settings.swift:101 */
 "No shortcut. The Apps Menu opens from its cell on the bar." = "No shortcut. The Apps Menu opens from its cell on the bar.";
@@ -775,10 +767,6 @@
    ClickAction.swift:82 */
 "Open" = "Open";
 
-/* Button at the bottom of the launcher
-   LauncherPanelController.swift:372 */
-"Open Applications Folder" = "Open Applications Folder";
-
 /* Menu item: open the Calendar app
    AppDelegate.swift:582 */
 "Open Calendar" = "Open Calendar";
@@ -820,10 +808,6 @@
 /* Folder, as Finder names it
    SystemCatalog.swift:148 */
 "Pictures" = "Pictures";
-
-/* Shown when the Favourites list is empty
-   LauncherPanelController.swift:197 */
-"Pin an app to the bar to see it here" = "Pin an app to the bar to see it here";
 
 /* PreferencesView.swift:274 */
 "Pinned apps that are not running sit together as compact icons." = "Pinned apps that are not running sit together as compact icons.";
@@ -962,10 +946,6 @@
 /* PreferencesView.swift:70 */
 "Scale" = "Scale";
 
-/* Search field placeholder, e.g. 'Search All Apps'
-   LauncherPanelController.swift:102 */
-"Search %@" = "Search %@";
-
 /* Why Add Separator is greyed out
    AppDelegate.swift:809 */
 "Separators only show while the order is As Arranged." = "Separators only show while the order is As Arranged.";
@@ -1082,10 +1062,6 @@
 /* App category
    AppCategory.swift:81 */
 "Sports" = "Sports";
-
-/* Shown while the applications folders are being scanned
-   LauncherPanelController.swift:193 */
-"Still looking…" = "Still looking…";
 
 /* PreferencesView.swift:285 */
 "Style" = "Style";
@@ -1328,3 +1304,147 @@
 /* Shortcut refused: Command alone would steal an app's menu shortcut
    HotKey.swift:309 */
 "⌘ shortcuts belong to the app in front — ⌘W, ⌘⇧N — and this would take one from every app. Add ⌃ or ⌥." = "⌘ shortcuts belong to the app in front — ⌘W, ⌘⇧N — and this would take one from every app. Add ⌃ or ⌥.";
+
+/* Settings tab holding the ported launcher and quick-settings options
+   PreferencesTabController.swift:24 */
+"Features" = "Features";
+
+/* Features pane: show the pinned launcher entries in the launcher
+   PreferencesView.swift:982 */
+"Show Pinned Apps in Launcher" = "Show Pinned Apps in Launcher";
+
+/* Features pane: show Spotlight's most-used apps in the launcher
+   PreferencesView.swift:983 */
+"Show Most Used Apps in Launcher" = "Show Most Used Apps in Launcher";
+
+/* Features pane: section heading over launcher options
+   PreferencesView.swift:985 */
+"Launcher Settings" = "Launcher Settings";
+
+/* Launcher pinned-apps editor: add an application by choosing it
+   PreferencesView.swift:1021 */
+"Add Application..." = "Add Application...";
+
+/* Features pane: section heading over the pinned-apps editor
+   PreferencesView.swift:1025 */
+"Launcher Pinned Apps" = "Launcher Pinned Apps";
+
+/* Calendar flyout: shown instead of the list when the day has no events
+   CalendarView.swift:89 */
+"No events" = "No events";
+
+/* Calendar flyout: small-caps heading over the upcoming-events list
+   CalendarView.swift:169 */
+"UPCOMING" = "UPCOMING";
+
+/* Calendar flyout: shown when there is nothing in the upcoming list
+   CalendarView.swift:175 */
+"No upcoming events" = "No upcoming events";
+
+/* Calendar flyout: marks an event that lasts the whole day
+   CalendarView.swift:188, CalendarView.swift:280 */
+"All day" = "All day";
+
+/* Calendar event row: the date, a separator dot, then the time or an all-day marker
+   CalendarView.swift:280 */
+"%@ • %@" = "%@ • %@";
+
+/* Calendar event row: marks an event that lasts the whole day
+   CalendarView.swift:280 */
+"All Day" = "All Day";
+
+/* Launcher search field placeholder
+   ContentView.swift:112 */
+"Search..." = "Search...";
+
+/* Launcher: heading over the pinned entries
+   ContentView.swift:129 */
+"Pinned" = "Pinned";
+
+/* Launcher: collapse a category that was expanded
+   ContentView.swift:136 */
+"Show less" = "Show less";
+
+/* Launcher: expand a category to all of its apps
+   ContentView.swift:136 */
+"Show more" = "Show more";
+
+/* Launcher: heading over Spotlight's most-used apps
+   ContentView.swift:171 */
+"Most Used" = "Most Used";
+
+/* Launcher: view mode showing every app grouped by category
+   ContentView.swift:206 */
+"Category" = "Category";
+
+/* Launcher: view mode showing every app in one alphabetical list
+   ContentView.swift:207 */
+"A-Z" = "A-Z";
+
+/* Launcher: shown in place of the list when a search finds nothing
+   ContentView.swift:216 */
+"No apps found" = "No apps found";
+
+/* Launcher: shown when the filtered list is empty
+   ContentView.swift:253 */
+"No matches" = "No matches";
+
+/* Launcher footer menu: lock the screen
+   LauncherFooterView.swift:55 */
+"Lock Screen" = "Lock Screen";
+
+/* Launcher footer menu: restart the machine, asking first
+   LauncherFooterView.swift:62 */
+"Restart..." = "Restart...";
+
+/* Launcher footer menu: shut the machine down, asking first
+   LauncherFooterView.swift:65 */
+"Shut Down..." = "Shut Down...";
+
+/* Launcher footer menu: log the user out, asking first
+   LauncherFooterView.swift:68 */
+"Log Out..." = "Log Out...";
+
+/* Confirmation alert the power actions share as their default button
+   LauncherFooterView.swift:101 */
+"Confirm" = "Confirm";
+
+/* Network flyout: heading over the throughput and speed test
+   NetworkFlyoutView.swift:10 */
+"Network" = "Network";
+
+/* Network flyout: live throughput. The arguments are formatted rates
+   NetworkFlyoutView.swift:29 */
+"Testing: %@ down / %@ up" = "Testing: %@ down / %@ up";
+
+/* Network flyout: the last speed test's result. The arguments are formatted rates and the ping
+   NetworkFlyoutView.swift:33 */
+"Last test: %@ down / %@ up · %@ RPM" = "Last test: %@ down / %@ up · %@ RPM";
+
+/* Network flyout: start a speed test
+   NetworkFlyoutView.swift:38 */
+"Run speed test" = "Run speed test";
+
+/* Network flyout: shown while a speed test is running
+   NetworkFlyoutView.swift:38 */
+"Running speed test…" = "Running speed test…";
+
+/* Keyboard lock flyout: the toggle is off
+   KeyboardLockFlyoutView.swift:14 */
+"Keyboard Lock" = "Keyboard Lock";
+
+/* Keyboard lock flyout: the toggle is on
+   KeyboardLockFlyoutView.swift:14 */
+"Keyboard Locked" = "Keyboard Locked";
+
+/* Keyboard lock flyout: how long until the lock releases itself. The argument is a formatted interval
+   KeyboardLockFlyoutView.swift:20 */
+"Unlocks automatically in %@" = "Unlocks automatically in %@";
+
+/* Keyboard lock flyout: release the lock now
+   KeyboardLockFlyoutView.swift:24 */
+"Unlock" = "Unlock";
+
+/* Keyboard lock flyout: engage the lock
+   KeyboardLockFlyoutView.swift:29 */
+"Lock Keyboard" = "Lock Keyboard";

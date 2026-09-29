@@ -53,10 +53,14 @@ enum LocalizableScan {
     /// Argument labels whose literal is never a key: a symbol name, an identifier, the translator's
     /// comment, or a string the author explicitly marked as not for translation.
     private static let skippedLabels = [
-        "verbatim:", "systemName:", "systemSymbolName:", "accessibilityDescription:",
+        "verbatim:", "systemName:", "systemImage:", "systemSymbolName:", "accessibilityDescription:",
         "identifier:", "named:", "forKey:", "comment:", "table:", "tableName:", "bundle:",
         "value:", "key:",
     ]
+
+    /// Call shapes whose argument is code, not copy: a literal inside one of these is a selector
+    /// name or similar, never a key, wherever in the call it sits.
+    private static let codeShapes = ["Selector(", "NSSelectorFromString("]
 
     static func scan(file url: URL) throws -> [Found] {
         let source = try String(contentsOf: url, encoding: .utf8)
@@ -77,6 +81,8 @@ enum LocalizableScan {
 
                 for literal in inCall {
                     guard !literal.isSkipped else { continue }
+                    // A literal wrapped in a selector constructor is an identifier, not copy.
+                    guard !inCodeShape(literal, in: skeleton) else { continue }
                     // A key may open with a letter, an opening quote, a modifier key's symbol, or
                     // the value itself — "%lld items" is a key; "launcher" as a table-column
                     // identifier is not. The modifier symbols are here because a sentence about a
@@ -99,6 +105,27 @@ enum LocalizableScan {
     }
 
     // MARK: - Literals
+
+    /// Whether the literal sits directly inside a selector constructor — `Selector("…")` or
+    /// `NSSelectorFromString("…")` — whose argument is an identifier rather than copy. Steps back
+    /// over the call's opening parenthesis and surrounding whitespace before matching the shape.
+    private static func inCodeShape(_ literal: Literal, in skeleton: [Character]) -> Bool {
+        func skipWhitespace(_ index: Int) -> Int {
+            var index = index
+            while index > 0, [" ", "\n", "\t"].contains(skeleton[index - 1]) { index -= 1 }
+            return index
+        }
+        var index = skipWhitespace(literal.start)
+        guard index > 0, skeleton[index - 1] == "(" else { return false }
+        index = skipWhitespace(index - 1)
+        for shape in codeShapes {
+            let shapeCharacters = Array(shape)
+            let start = index - shapeCharacters.count
+            guard start >= 0 else { continue }
+            if skeleton[start..<index].elementsEqual(shapeCharacters) { return true }
+        }
+        return false
+    }
 
     private struct Literal {
         var pattern: String

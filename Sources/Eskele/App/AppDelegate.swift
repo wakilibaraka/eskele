@@ -61,8 +61,6 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         model = DockModel(persistence: persistence, running: running, settings: settings)
 
         recents = RecentAppsService(persistence: persistence)
-        launcher.favorites = { [weak self] in self?.model.pinnedAppURLs() ?? [] }
-        launcher.onShowSettings = { [weak self] in self?.statusItemDidShowPreferences() }
         catalog.refreshIfStale(maxAge: 0)
 
         trashWatcher = TrashWatcher()
@@ -225,8 +223,6 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     }
 
     private func refresh() {
-        launcher.source = settings.appsMenuSource
-        launcher.showsSystemItems = settings.showSystemItems
         // Only the folders actually on the bar are watched: a folder with no cell has nowhere to
         // draw a bar, so watching it would be work for nothing. See `FileProgressService`.
         fileProgress.folders = settings.showProgress
@@ -299,29 +295,24 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     /// the same affordance — and the panel already takes focus into its search field, which is what
     /// makes "press it and start typing" work.
     private func toggleAppsMenu() {
-        guard !launcher.isVisible else {
-            launcher.close()
+        guard !LaunchpickManager.shared.isOpen else {
+            LaunchpickManager.shared.hide()
             return
         }
-        // Read before the launcher opens: taking the keyboard from the bar is what makes the bar
-        // forget where it came from.
-        let returnTo = coordinator.keyboardReturnApp
-        guard let (anchor, screen, bar) = coordinator.appsMenuAnchor() else { return }
+        guard let (_, _, bar) = coordinator.appsMenuAnchor() else { return }
         // Held open exactly as a click holds it: an auto-hiding bar must not slide away underneath
         // the panel it is anchored to while the user is still typing into it.
         bar.beginInteraction()
-        let opened = launcher.toggle(
-            anchor: anchor, edge: settings.edge, screen: screen, returningTo: returnTo,
-            onDismiss: { [weak bar] in bar?.endInteraction() })
-        if !opened { bar.endInteraction() }
+        LaunchpickManager.shared.toggle(
+            relativeTo: bar, onDismiss: { [weak bar] in bar?.endInteraction() })
     }
 
     /// Moves focus to the bar, or gives it back to the app it came from (§5.27).
     private func toggleBarKeyboard() {
-        // From inside the launcher, Eskele is already in front: the app to go back to is the one the
-        // launcher took the keyboard from, and closing it must not hand the keyboard back on the way.
-        let returnTo = launcher.isVisible ? launcher.relinquishKeyboard() : nil
-        coordinator.toggleKeyboard(returningTo: returnTo)
+        // Launchpick owns the keyboard while it is open: close it first so focus has somewhere to
+        // land, then let the bar take it.
+        if LaunchpickManager.shared.isOpen { LaunchpickManager.shared.hide() }
+        coordinator.toggleKeyboard(returningTo: nil)
     }
 
     /// A file appearing in `Icons/` has to reach the cells, and the cells are rebuilt from the
@@ -769,7 +760,7 @@ extension AppDelegate: BarContentViewDelegate {
 
     /// Nil when the user cancels; an empty string is a real answer meaning "use the real name".
     private func askForName(current: String?, placeholder: String) -> String? {
-        NSApp.activate()
+        NSApp.activateCompat()
         let alert = NSAlert()
         alert.messageText = String(
             localized: "Rename “\(placeholder)”",
@@ -947,7 +938,7 @@ extension AppDelegate: BarContentViewDelegate {
     /// The count is stated only when `TrashSnapshot` says it is exact; without Full Disk Access it is
     /// inferred from directory metadata, and a confirmation must not present a guess as a fact.
     private func confirmEmptyTrash() -> Bool {
-        NSApp.activate()
+        NSApp.activateCompat()
         let alert = NSAlert()
         alert.alertStyle = .warning
         alert.messageText = TrashPrompt.message(for: trashWatcher.snapshot)
@@ -961,7 +952,7 @@ extension AppDelegate: BarContentViewDelegate {
     /// Emptying the Trash is the one feature that needs a permission, so failing at it has to
     /// explain itself rather than beeping.
     private func presentAutomationPermissionAlert() {
-        NSApp.activate()
+        NSApp.activateCompat()
         let alert = NSAlert()
         alert.messageText = String(
             localized: "Eskele needs permission to control Finder",
@@ -1051,7 +1042,7 @@ extension AppDelegate: PreferencesActions {
         let panel = NSSavePanel()
         panel.allowedContentTypes = [.json]
         panel.nameFieldStringValue = SettingsFile.suggestedName
-        NSApp.activate()
+        NSApp.activateCompat()
         guard panel.runModal() == .OK, let url = panel.url else { return }
         do {
             try Persistence.encode(settings).write(to: url, options: .atomic)
@@ -1065,7 +1056,7 @@ extension AppDelegate: PreferencesActions {
     func importSettings() {
         let panel = NSOpenPanel()
         panel.allowedContentTypes = [.json]
-        NSApp.activate()
+        NSApp.activateCompat()
         guard panel.runModal() == .OK, let url = panel.url else { return }
 
         let data: Data
@@ -1087,7 +1078,7 @@ extension AppDelegate: PreferencesActions {
     }
 
     func restoreDefaultSettings() {
-        NSApp.activate()
+        NSApp.activateCompat()
         let alert = NSAlert()
         alert.alertStyle = .warning
         alert.messageText = SettingsFile.resetMessage

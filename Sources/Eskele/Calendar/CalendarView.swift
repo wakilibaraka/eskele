@@ -277,7 +277,13 @@ struct EventRow: View {
                     .foregroundStyle(Color.primary)
                     .lineLimit(2)
                 
-                Text((showDate ? "\(dateString) • " : "") + (event.isAllDay ? "All Day" : timeString))
+                Group {
+                    if showDate {
+                        Text("\(dateString) • \(event.isAllDay ? String(localized: "All Day") : timeString)")
+                    } else {
+                        Text(event.isAllDay ? String(localized: "All Day") : timeString)
+                    }
+                }
                     .font(.system(size: 10))
                     .foregroundStyle(.secondary)
             }

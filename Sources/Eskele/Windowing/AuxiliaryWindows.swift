@@ -23,7 +23,7 @@ final class PreferencesWindowController {
             window.center()
             self.window = window
         }
-        NSApp.activate()
+        NSApp.activateCompat()
         window?.makeKeyAndOrderFront(nil)
     }
 }
@@ -42,7 +42,7 @@ enum AboutPanel {
     static func show() {
         // Like the settings window: an agent app is never frontmost on its own, so without this the
         // panel opens behind whatever the user was using.
-        NSApp.activate()
+        NSApp.activateCompat()
         NSApp.orderFrontStandardAboutPanel(options: [.credits: credits()])
     }
 
@@ -129,7 +129,7 @@ final class OnboardingWindowController {
         window.center()
         self.window = window
 
-        NSApp.activate()
+        NSApp.activateCompat()
         window.makeKeyAndOrderFront(nil)
     }
 
